@@ -92,7 +92,24 @@ class Kaosheng extends CI_Controller {
 		$this->load->view ( 'menu', $data );
 		$this->load->view ( 'kaosheng_edit', $list );
 	}
+	// =============== 考生 注册 register ========================
+	public function kaosheng_register() {
+	    $status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 	
+	    $this->load->model ( 'Data_model' );
+	    $list['daqu']=$this->Data_model->get_data('id asc','daqu');
+	    $list['school']=$this->Data_model->get_data('id asc','school');
+	
+	    $data ['title'] = '考生添加 - ';
+	    $data ['curbig'] = 1; // current
+	    $data ['cursmal'] = 11; // class="current"
+	
+	    $list ['info'] = '考生';
+	    $list ['action'] = 'add';
+	
+	    $this->load->view ( 'menu_kaosheng',$data);
+	    $this->load->view ( 'kaosheng_edit', $list );
+	}
 	// =============== 添加 考生 do ========================
 	public function kaosheng_adddo() {
 		if ($this->session->userdata ( 'manage_role' ) == '') {

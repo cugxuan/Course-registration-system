@@ -29,13 +29,13 @@
 </head>
 <body>
 
-<?php
-		if($this->session->userdata('manage_role')==''){
-			echo '<script>alert("请登录 ！");';
-			echo 'window.location.href="'.site_url('index').'";</script>';
-			exit;	
-		}
-		?>
+// <?php
+// 		if($this->session->userdata('manage_role')==''){
+// 			echo '<script>alert("请登录 ！");';
+// 			echo 'window.location.href="'.site_url('index').'";</script>';
+// 			exit;	
+// 		}
+// 		?>
 <div id="body-wrapper">
  
   <div id="sidebar">

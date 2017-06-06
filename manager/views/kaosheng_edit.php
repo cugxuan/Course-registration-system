@@ -42,48 +42,20 @@
  <fieldset>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td>选择大区 : </td>
-          <td><select name="daqu_num" id="daqu_num">	
- <?php 
- foreach($daqu as $k=>$v){
- ?>	
- <option value="<?php echo $v['num'];?>"  <?php if($action=='add'){}else{
-			if(isset($list['daqu_num']) &&  $list['daqu_num']==$v['num']){ echo 'selected';}		} ?>><?php echo $v['name'];?></option>
-<?php		  
-}
-?>
-			</select></td>
-          <td>姓名 : </td>
-          <td><input class="text-input" type="text" id="name" name="name" size="40" value="<?php if($action=='add'){}else{
+          <td>考生号 : </td>
+          <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['name'])){echo $list['name'];}
+			} ?>" />(即学号，如： 20151003756)</td>
+          <td>密码 : </td>
+          <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['name'])){echo $list['name'];}
 			} ?>" /></td>
         </tr>
 		<tr>
-          <td>毕业学校 : </td>
-          <td><select name="school_name" id="school_name">	
-<?php
-$havaSchool=false;
-foreach($school as $k=>$v){
-?>	
- <option value="<?php echo $v['school_name'];?>" class="<?php echo $v['daqu_num'];?>"  <?php if($action=='add'){}else{
-			if(isset($list['school_name']) &&  $list['school_name']==$v['school_name']){ $havaSchool=true; echo 'selected';}		} ?>><?php echo $v['school_name'];?></option>
-  <?php
-  }
-  ?>  
-  <?php 
- foreach($daqu as $k=>$v){
- ?>	
-			<option value="其他"  class="<?php echo $v['num'];?>" <?php  if(!$havaSchool && $list['daqu_num']==$v['num']){echo 'selected';} ?>>其他</option>
-<?php		  
-}
-?>
-  
-  
-			</select>
-			&nbsp;&nbsp;
-			<input class="text-input" type="text" id="school_name2" name="school_name2" size="40" <?php if($action=='add' || $havaSchool){?>style="display:none"<?php } ?> value="<?php if(!$havaSchool && isset($list['school_name'])){echo $list['school_name'] ;}?>" />
-			
-			</td>
+          <td>姓名 : </td>
+          <td><input class="text-input" type="text" id="name" name="name" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['name'])){echo $list['name'];}
+			} ?>" /></td>
           <td>身份证号  :          </td>
           <td><input class="text-input" type="text" id="sfz" name="sfz" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['sfz'])){echo $list['sfz'];}
@@ -98,49 +70,21 @@ foreach($school as $k=>$v){
 			   <option value="0"   <?php if($action=='add'){}else{
 			if($list['sex']=='0'){echo 'selected';}}?>>女</option>
 			</select></td>
-          <td>出生年月 : </td>
-          <td><input class="text-input" type="text" id="birthday" name="birthday" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['birthday'])){echo $list['birthday'];}
-			} ?>" />  (如： 200101)</td>
-        </tr>
-        
-        <tr>
-          <td>家庭住址 :           </td>
-          <td><input class="text-input" type="text" id="address" name="address" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['address'])){echo $list['address'];}
-			} ?>" /></td>
-          <td>父母姓名 :           </td>
-          <td><input class="text-input" type="text" id="fmqo_name" name="fmqo_name" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['fmqo_name'])){echo $list['fmqo_name'];}
-			} ?>" /></td>
-        </tr>
-        <tr>
           <td>联系电话  :          </td>
           <td><input class="text-input" type="text" id="tel" name="tel" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['tel'])){echo $list['tel'];}
 			} ?>" /></td>
-          <td>&nbsp;</td>
-          <td>&nbsp;</td>
         </tr>
+        
         <tr>
-          <td>照片 : </td>
-          <td><input class="text-input" type="text" id="photo" name="photo" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['photo'])){echo $list['photo'];}
-			} ?>"  readonly="readonly" /><input type="button" id="uploadButton" value="Upload" />
-			
-			<?php if($action=='add'){}else{
-			if(isset($list['photo'])){
-			?>
-			<img src="<?php echo $list['photo'];?>" width="89" height="115" />
-			<?php 
-			}
-			} ?>
-          </td>
-          <td>&nbsp;</td>
-          <td>&nbsp;<?php if($action=='add'){}else{
-			if(isset($list['kaosheng_no'])){echo '<h3><font color=red>报名号：</font>'.$list['kaosheng_no'].'</h3>';}
-			} ?></td>
+          <td>所在地 :           </td>
+          <td><input class="text-input" type="text" id="address" name="address" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['address'])){echo $list['address'];}
+			} ?>" /></td>
+          <td>           </td>
+          <td class="text-input"></td>
         </tr>
+      
       </table>
 	  <p><br />
 	  <h3><?php if($action=='add'){ }else{echo '注意：修改了考生所属大区和学校后<font color=red>报名号</font>会重新生成！';} ?></h3>

@@ -115,10 +115,6 @@ class Index extends CI_Controller {
 		redirect ( site_url ( 'index/manage' ) );
 	}
 	
-	public function register(){
-	    echo 123;
-	}
-	
 	
 	public function manage() {
 		if ($this->session->userdata ( 'manage_role' ) == '') {
@@ -139,6 +135,20 @@ class Index extends CI_Controller {
 		$this->load->view ( 'menu', $data );
 		$this->load->view ( 'manage', $list );
 	}
+	
+	public function register(){
+	    $data ['title'] = '系统管理 - ';
+	    $data ['curbig'] = 1; // current
+	    $data ['cursmal'] = 0; // class="current"
+	    
+	    $list ['manage_name'] = $this->session->userdata ( 'manage_name' );
+	    $list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
+	    $list ['manage_role'] = $this->session->userdata ( 'manage_role' );
+	    
+	    $this->load->view ('menu_kaosheng',$data);
+	    $this->load->view ( 'kaosheng_view', $list );
+	}
+	
 	public function logout() {
 		$this->session->unset_userdata ( 'manage_name' );
 		$this->session->unset_userdata ( 'manage_truename' );
