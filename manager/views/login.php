@@ -49,13 +49,13 @@
 	    <p>
 		<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证码:</label>
    <input name="yzm" type="text" class="text-input" id="yzm" size="10" maxlength="5" />
-    <div style="position:relative; left:320px; top:0px;"><img src="<?php echo site_url('index/random');?>" border="0" width="50" height="18" onclick="this.src='<?php echo site_url('index/random');?>?'+Math.random();"  style="cursor:hand;" /></div>
+    <div style="position:relative; left:320px; top:0px;"><img src="<?php echo site_url('index/random');?>" border="0" width="50" height="26" onclick="this.src='<?php echo site_url('index/random');?>?'+Math.random();"  style="position: absolute;left: -12px;top:0px;" /></div>
       </p>
       <div class="clear"></div>
       <div class="clear"></div>
       <p align="middle">
         <input class="button" type="submit" value="登 录" />
-        <input class="button" type="submit" value="注 册" />
+        <a href="<?php echo site_url("index/register");?>"  class="button" style="margin-top: 20px;height: 17px;">注册</a> 
       </p>
     </form>
   </div>
