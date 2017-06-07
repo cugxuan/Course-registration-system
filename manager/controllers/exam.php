@@ -63,7 +63,8 @@ class Exam extends CI_Controller {
 		$this->custom_pagination->init ( $config );
 		$list ['fenye'] = $this->custom_pagination->create_links ();
 		
-		$this->load->view ( 'menu', $data );
+		//$this->load->view ( 'menu', $data );
+		$this->load->view ( 'menu_kaosheng', $data );
 		$this->load->view ( 'exam_list', $list );
 	}
 	

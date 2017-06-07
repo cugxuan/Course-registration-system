@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><?php echo $title;?> 后台管理中心</title>
+<title><?php echo $title;?> 考生注册</title>
 <!--  CSS   -->
 <!-- Reset Stylesheet -->
 <link rel="stylesheet" href="<?php echo base_url();?>public/images/admin/css/reset.css" type="text/css" media="screen" />
@@ -41,40 +41,24 @@
   <div id="sidebar">
     <div id="sidebar-wrapper">
      
-      <h1 id="sidebar-title"></h1>
+      <h1 id="sidebar-title">考生注册</h1>
       <!-- Logo (221px wide) -->
-      <img id="logo" src="<?php echo base_url();?>public/images/admin/images/kaosheng.png" alt="Simpla Admin logo" />
+      <img id="logo" src="<?php echo base_url();?>public/images/admin/images/register.png" alt="Simpla Admin logo" />
      
-      <div id="profile-links"> 你好,  简同学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      <div id="profile-links"> 请填写考生信息 <?php echo $this->session->userdata('manage_name');?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
         <br />
-        <a href="<?php echo site_url('index/manage');?>" title="后台首页">考生信息</a> |  &nbsp;<a href="<?php echo site_url('index/logout');?>" title="退出登录">退出登录</a> </div>
+        <a href="<?php echo site_url('index');?>" title="系统首页">首页</a> |  &nbsp; </div>
       <ul id="main-nav">
         <!--  Menu  Start -->
-        <?php
-		if($this->session->userdata('manage_role')=='1' || $this->session->userdata('manage_role')=='10'){
-		?>
-	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生管理 </a>
+
+		    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生注册 </a>
           <ul>
-         	<li><a href="<?php echo site_url("index/register");?>" <?php if($cursmal==11){echo ' class="current"';}?>>考生须知</a></li>
-            <li><a href="<?php echo site_url("kaosheng/kaosheng_info");?>" <?php if($cursmal==12){echo ' class="current"';}?>>考生信息</a></li>
-            <li><a href="<?php echo site_url("kaosheng/kaosheng_edit");?>" <?php if($cursmal==12){echo ' class="current"';}?>>修改信息</a></li>
-          </ul>
-        </li>
-		
-	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==2){echo '  current';}?>"> 考试管理 </a>
-          <ul>
-         <li><a href="<?php echo site_url("exam/exam_add");?>" <?php if($cursmal==21){echo ' class="current"';}?>>报名考试</a></li>
-            <li><a href="<?php echo site_url("exam/exam_list");?>" <?php if($cursmal==22){echo ' class="current"';}?>>考试列表</a></li>			
-			 <!--<li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==23){echo ' class="current"';}?>>座位管理</a></li>-->       
+          	 <li><a href="<?php echo site_url("/index/register");?>" <?php if($cursmal==11){echo ' class="current"';}?>>考生须知</a></li>             
+	         <li><a href="<?php echo site_url("kaosheng/kaosheng_register");?>" <?php if($cursmal==12){echo ' class="current"';}?>">添加考生</a></li>
 			
           </ul>
         </li>
-		
-		<?php
-		}
-		?>
-		  	
-      
+				  	
       </ul>
       <!-- End #main-nav -->
       

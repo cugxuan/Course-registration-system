@@ -107,7 +107,7 @@ class Kaosheng extends CI_Controller {
 	    $list ['info'] = '考生';
 	    $list ['action'] = 'add';
 	
-	    $this->load->view ( 'menu_kaosheng',$data);
+	    $this->load->view ( 'menu_register',$data);
 	    $this->load->view ( 'kaosheng_edit', $list );
 	}
 	// =============== 添加 考生 do ========================

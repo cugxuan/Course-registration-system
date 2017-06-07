@@ -124,7 +124,18 @@ class Index extends CI_Controller {
 			exit ();
 		}
 		
-		$data ['title'] = '系统管理 - ';
+// 		$data ['title'] = '系统管理 - ';
+// 		$data ['curbig'] = 1; // current
+// 		$data ['cursmal'] = 0; // class="current"
+		
+// 		$list ['manage_name'] = $this->session->userdata ( 'manage_name' );
+// 		$list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
+// 		$list ['manage_role'] = $this->session->userdata ( 'manage_role' );
+		
+// 		$this->load->view ( 'menu', $data );
+// 		$this->load->view ( 'manage', $list );
+		
+		$data ['title'] = '考生信息 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 0; // class="current"
 		
@@ -132,8 +143,8 @@ class Index extends CI_Controller {
 		$list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
 		$list ['manage_role'] = $this->session->userdata ( 'manage_role' );
 		
-		$this->load->view ( 'menu', $data );
-		$this->load->view ( 'manage', $list );
+		$this->load->view ( 'menu_kaosheng', $data );
+		$this->load->view ( 'kaosheng_view', $list );
 	}
 	
 	public function register(){
@@ -145,7 +156,7 @@ class Index extends CI_Controller {
 	    $list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
 	    $list ['manage_role'] = $this->session->userdata ( 'manage_role' );
 	    
-	    $this->load->view ('menu_kaosheng',$data);
+	    $this->load->view ('menu_register',$data);
 	    $this->load->view ( 'kaosheng_view', $list );
 	}
 	
