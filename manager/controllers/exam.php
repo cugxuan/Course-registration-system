@@ -2,7 +2,7 @@
 
 if (! defined ( 'BASEPATH' ))
 	exit ( 'No direct script access allowed' );
-class Kaosheng extends CI_Controller {
+class Exam extends CI_Controller {
 	function __construct() {
 		parent::__construct ();
 	}
@@ -19,10 +19,10 @@ class Kaosheng extends CI_Controller {
 	}
 	
 	/**
-	 * 考生列表 start
+	 * 考试列表 start
 	 */
 	// =============== 考生 列表 ========================
-	public function kaosheng_list($page = 1) {
+	public function exam_list($page = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		if ($this->session->userdata ( 'manage_role' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
@@ -48,11 +48,11 @@ class Kaosheng extends CI_Controller {
 		$this->load->model ( 'Data_model' );
 		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'kaosheng', $num, $offset );
 		
-		$data ['title'] = '考生列表 - ';
-		$data ['curbig'] = 1; // current
-		$data ['cursmal'] = 12; // class="current"
+		$data ['title'] = '考试列表 - ';
+		$data ['curbig'] = 2; // current
+		$data ['cursmal'] = 22; // class="current"
 		
-		$list ['info'] = '考生';
+		$list ['info'] = '考试';
 		$list ['total_rows'] = $this->db->count_all ( 'kaosheng' );
 		
 		$config ['page_url'] = 'kaosheng/kaosheng_list';
@@ -64,11 +64,11 @@ class Kaosheng extends CI_Controller {
 		$list ['fenye'] = $this->custom_pagination->create_links ();
 		
 		$this->load->view ( 'menu', $data );
-		$this->load->view ( 'kaosheng_list', $list );
+		$this->load->view ( 'exam_list', $list );
 	}
 	
-	// =============== 考生 添加 ========================
-	public function kaosheng_add() {
+	// =============== 考试 添加 ========================
+	public function exam_add() {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		if ($this->session->userdata ( 'manage_role' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
@@ -82,34 +82,18 @@ class Kaosheng extends CI_Controller {
 		$list['daqu']=$this->Data_model->get_data('id asc','daqu');
 		$list['school']=$this->Data_model->get_data('id asc','school');
 		
-		$data ['title'] = '考生添加 - ';
-		$data ['curbig'] = 1; // current
-		$data ['cursmal'] = 11; // class="current"
+		$data ['title'] = '考试添加 - ';
+		$data ['curbig'] = 2; // current
+		$data ['cursmal'] = 21; // class="current"
 		
-		$list ['info'] = '考生';
+		$list ['info'] = '考试';
 		$list ['action'] = 'add';
 		
 		$this->load->view ( 'menu', $data );
-		$this->load->view ( 'kaosheng_edit', $list );
+		$this->load->view ( 'exam_edit', $list );
 	}
-	// =============== 考生 注册 register ========================
-	public function kaosheng_register() {
-	    $status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 	
-	    $this->load->model ( 'Data_model' );
-	    $list['daqu']=$this->Data_model->get_data('id asc','daqu');
-	    $list['school']=$this->Data_model->get_data('id asc','school');
-	
-	    $data ['title'] = '考生添加 - ';
-	    $data ['curbig'] = 1; // current
-	    $data ['cursmal'] = 12; // class="current"
-	
-	    $list ['info'] = '考生';
-	    $list ['action'] = 'add';
-	
-	    $this->load->view ( 'menu_kaosheng',$data);
-	    $this->load->view ( 'kaosheng_edit', $list );
-	}
+
 	// =============== 添加 考生 do ========================
 	public function kaosheng_adddo() {
 		if ($this->session->userdata ( 'manage_role' ) == '') {

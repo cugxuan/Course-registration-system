@@ -31,6 +31,7 @@
 
      </div>
   <!-- End #logn-top -->
+  <div id="particles-js">
   <div id="login-content">
     <form action="<?php echo site_url("index/login");?>" method="post" id="login"  name="login">
       <div class="notification information png_bg">

@@ -54,7 +54,7 @@
 		    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生注册 </a>
           <ul>
           	 <li><a href="<?php echo site_url("/index/register");?>" <?php if($cursmal==11){echo ' class="current"';}?>>考生须知</a></li>             
-	         <li><a href="<?php echo site_url("kaosheng/kaosheng_register");?>" <?php if($cursmal==11){echo ' class="current"';}?>">添加考生</a></li>
+	         <li><a href="<?php echo site_url("kaosheng/kaosheng_register");?>" <?php if($cursmal==12){echo ' class="current"';}?>">添加考生</a></li>
 			
           </ul>
         </li>

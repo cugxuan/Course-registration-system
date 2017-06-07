@@ -139,7 +139,7 @@ class Index extends CI_Controller {
 	public function register(){
 	    $data ['title'] = '系统管理 - ';
 	    $data ['curbig'] = 1; // current
-	    $data ['cursmal'] = 0; // class="current"
+	    $data ['cursmal'] = 11; // class="current"
 	    
 	    $list ['manage_name'] = $this->session->userdata ( 'manage_name' );
 	    $list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );

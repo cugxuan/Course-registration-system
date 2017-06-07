@@ -53,21 +53,12 @@
         <?php
 		if($this->session->userdata('manage_role')=='1' || $this->session->userdata('manage_role')=='10'){
 		?>
-	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生管理 </a>
+		    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生管理 </a>
           <ul>
          <li><a href="<?php echo site_url("kaosheng/kaosheng_add");?>" <?php if($cursmal==11){echo ' class="current"';}?> target="_blank">添加考生</a></li>
             <li><a href="<?php echo site_url("kaosheng/kaosheng_list");?>" <?php if($cursmal==12){echo ' class="current"';}?>>考生管理</a></li>			
 			 <!--<li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==13){echo ' class="current"';}?>>座位管理</a></li>-->
 			 <li><a href="<?php echo site_url("kaosheng/exportall");?>" <?php if($cursmal==14){echo ' class="current"';}?> target="_blank">导出考生</a></li>              
-			
-          </ul>
-        </li>
-		
-	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==2){echo '  current';}?>"> 考试管理 </a>
-          <ul>
-         <li><a href="<?php echo site_url("exam/exam_add");?>" <?php if($cursmal==21){echo ' class="current"';}?> target="_blank">添加考试</a></li>
-            <li><a href="<?php echo site_url("exam/exam_list");?>" <?php if($cursmal==22){echo ' class="current"';}?>>考试列表</a></li>			
-			 <!--<li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==23){echo ' class="current"';}?>>座位管理</a></li>-->       
 			
           </ul>
         </li>
@@ -88,6 +79,7 @@
             <li><a href="<?php echo site_url("admin/admin_list");?>" <?php if($cursmal==52){echo ' class="current"';}?>>管理员管理</a></li>
           </ul>
         </li>
+		
 		
 		 <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==6){echo '  current';}?>"> 系统设置 </a>
           <ul>

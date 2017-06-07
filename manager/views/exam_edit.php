@@ -42,49 +42,37 @@
  <fieldset>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-          <td>考生号 : </td>
+          <td>考试编号 : </td>
           <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['name'])){echo $list['name'];}
-			} ?>" />(即学号，如： 20151003756)</td>
-          <td>密码 : </td>
-          <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
+			} ?>" /></td>
+          <td>科目: </td>
+          <td><input class="text-input" type="text" id="course" name="course" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['name'])){echo $list['name'];}
 			} ?>" /></td>
         </tr>
 		<tr>
-          <td>姓名 : </td>
-          <td><input class="text-input" type="text" id="name" name="name" size="40" value="<?php if($action=='add'){}else{
+          <td>起始时间 : </td>
+          <td><input class="text-input" type="text" id="stime" name="stime" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['name'])){echo $list['name'];}
-			} ?>" /></td>
-          <td>身份证号  :          </td>
-          <td><input class="text-input" type="text" id="sfz" name="sfz" size="40" value="<?php if($action=='add'){}else{
+			} ?>" />(如201706171000)</td>
+          <td>终止时间  :          </td>
+          <td><input class="text-input" type="text" id="etime" name="etime" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['sfz'])){echo $list['sfz'];}
-			} ?>" /></td>
+			} ?>" />(如201706171200)</td>
         </tr>
 		
         <tr>
-          <td>性别 : </td>
-          <td><select name="sex" id="sex">	
-			  <option value="1"   <?php if($action=='add'){}else{
-			if($list['sex']=='1'){echo 'selected';}}?>>男</option>
-			   <option value="0"   <?php if($action=='add'){}else{
-			if($list['sex']=='0'){echo 'selected';}}?>>女</option>
-			</select></td>
-          <td>联系电话  :          </td>
-          <td><input class="text-input" type="text" id="tel" name="tel" size="40" value="<?php if($action=='add'){}else{
+          <td>地点 : </td>
+          <td><input class="text-input" type="text" id="pos" name="pos" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['tel'])){echo $list['tel'];}
+			} ?>" /></td>
+          <td>人数容量 :          </td>
+          <td><input class="text-input" type="text" id="capacity" name="capacity" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['tel'])){echo $list['tel'];}
 			} ?>" /></td>
         </tr>
         
-        <tr>
-          <td>所在地 :           </td>
-          <td><input class="text-input" type="text" id="address" name="address" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['address'])){echo $list['address'];}
-			} ?>" /></td>
-          <td>           </td>
-          <td class="text-input"></td>
-        </tr>
-      
       </table>
 
 	  <p align="center">
