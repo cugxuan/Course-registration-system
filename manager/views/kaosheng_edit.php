@@ -86,9 +86,7 @@
         </tr>
       
       </table>
-	  <p><br />
-	  <h3><?php if($action=='add'){ }else{echo '注意：修改了考生所属大区和学校后<font color=red>报名号</font>会重新生成！';} ?></h3>
-	  </p>
+
 	  <p align="center">
               <input class="button" type="submit" value="<?php if($action=='add'){echo '添加'.$info;}else{echo '编辑'.$info;} ?>" />
             </p>
@@ -102,14 +100,13 @@
 	
 	
 	<br />
-	<?php if($action=='add'){}else{
+	<!--<?php if($action=='add'){}else{
 		?>		
 		<div> <input type="button" name="button1" id="button1" value="分配座位" onclick="window.location.href='<?php echo site_url("kaosheng/kaosheng_fp/".$list['id'].'/'.substr($list['zuowei_all_num'],0,2));?>';" style="width:100px; height:50px;"  />
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	 <input type="button" name="button2" id="button2" value="打印准考证" onclick="window.location.href='<?php echo site_url("kaosheng/kaosheng_print_preview/".$list['id']);?>';"  style="width:100px; height:50px;"   />
 	</div>
-	<?php	} ?>
-	
+	<?php	} ?>-->
 		
 		</div>
 		

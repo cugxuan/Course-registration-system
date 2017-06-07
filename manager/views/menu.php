@@ -57,7 +57,7 @@
           <ul>
          <li><a href="<?php echo site_url("kaosheng/kaosheng_add");?>" <?php if($cursmal==11){echo ' class="current"';}?> target="_blank">添加考生</a></li>
             <li><a href="<?php echo site_url("kaosheng/kaosheng_list");?>" <?php if($cursmal==12){echo ' class="current"';}?>>考生管理</a></li>			
-			 <li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==13){echo ' class="current"';}?>>座位管理</a></li>
+			 <!--<li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==13){echo ' class="current"';}?>>座位管理</a></li>-->
 			 <li><a href="<?php echo site_url("kaosheng/exportall");?>" <?php if($cursmal==14){echo ' class="current"';}?> target="_blank">导出考生</a></li>              
 			
           </ul>
@@ -85,8 +85,8 @@
           <ul>
             <li><a href="<?php echo site_url("systemc/index");?>" <?php if($cursmal==62){echo ' class="current"';}?>>系统设置</a></li>
 			<li><a href="<?php echo site_url("systemc/init_system");?>" <?php if($cursmal==63){echo ' class="current"';}?>>初始化系统</a></li>			
-			<li><a href="<?php echo site_url("daqu/daqu_list");?>" <?php if($cursmal==64){echo ' class="current"';}?>>大区管理</a></li>
-			<li><a href="<?php echo site_url("school/school_list");?>" <?php if($cursmal==65){echo ' class="current"';}?>>学校管理</a></li>
+			<!--<li><a href="<?php echo site_url("daqu/daqu_list");?>" <?php if($cursmal==64){echo ' class="current"';}?>>大区管理</a></li>-->
+			<!--<li><a href="<?php echo site_url("school/school_list");?>" <?php if($cursmal==65){echo ' class="current"';}?>>学校管理</a></li>-->
           </ul>
         </li>
 		
