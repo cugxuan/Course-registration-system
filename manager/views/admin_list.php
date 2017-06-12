@@ -16,10 +16,10 @@
             <thead>
               <tr>
                 
-                <th width="133">id</th>
-                <th width="175">用户名</th>	
-				<th width="175">真实姓名</th>
-				<th width="175">是否停用</th>		
+                <!--  <th width="133">id</th>-->
+                <th width="175">管理员编号</th>	
+				<th width="175">姓名</th>
+				<!-- <th width="175">是否停用</th> -->		
 				<th width="175">管理类别</th>				
                 <th width="127">操作</th>
               </tr>
@@ -30,24 +30,24 @@
 		
 <tr>                
 <td><?php echo $item['id'];?></td>
-<td><a href="<?php echo site_url("admin/admin_edit/".$item['id']);?>" title="<?php echo $item['manage_name'];?>"><?php echo $item['manage_name'];?></a></td>
+<td><a href="<?php echo site_url("admin/admin_edit/".$item['id']);?>" title="<?php echo $item['name'];?>"><?php echo $item['name'];?></a></td>
 
-<td><?php echo $item['manage_truename'];?></td>
-<td><?php
-switch($item['manage_isstop'])
+<!-- <td><?php echo $item[''];?></td> -->
+<!--<td><?php
+switch($item['statement'])
 {
 case '0':
        echo '正常';break;
 case '1':
        echo '<font color=red>停用</font>';break;
 }
-?></td>
+?></td>-->
 <td><?php
-switch($item['manage_role'])
+switch($item['statement'])
 {
 case '1':
        echo '<font color=black>招生人员</font>';break;
-case '10':
+case '0':
 	echo '<font color=red>超级管理员</font>';break;
 }
 ?></td>

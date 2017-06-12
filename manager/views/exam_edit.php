@@ -37,7 +37,7 @@
 <h2><center>
   <?php if($action=='add'){echo '添加';}else{echo '编辑';} ?> <?php echo $info;?>
 </center></h2>
-<form action="<?php if($action=='add'){echo site_url("kaosheng/kaosheng_adddo/");}else{echo site_url("kaosheng/kaosheng_editdo/".$list['id']);} ?>" method="post" id="form" class="form">
+<form action="<?php if($action=='add'){echo site_url("exam/exam_adddo/");}else{echo site_url("exam/exam_editdo/".$list['id']);} ?>" method="post" id="form" class="form">
 
  <fieldset>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">

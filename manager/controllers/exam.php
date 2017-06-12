@@ -24,7 +24,7 @@ class Exam extends CI_Controller {
 	// =============== 考生 列表 ========================
 	public function exam_list($page = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -71,7 +71,7 @@ class Exam extends CI_Controller {
 	// =============== 考试 添加 ========================
 	public function exam_add() {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -80,8 +80,8 @@ class Exam extends CI_Controller {
 
 		
 		$this->load->model ( 'Data_model' );
-		$list['daqu']=$this->Data_model->get_data('id asc','daqu');
-		$list['school']=$this->Data_model->get_data('id asc','school');
+		//$list['daqu']=$this->Data_model->get_data('id asc','daqu');
+		//$list['school']=$this->Data_model->get_data('id asc','school');
 		
 		$data ['title'] = '考试添加 - ';
 		$data ['curbig'] = 2; // current
@@ -96,8 +96,8 @@ class Exam extends CI_Controller {
 	
 
 	// =============== 添加 考生 do ========================
-	public function kaosheng_adddo() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+	public function exam_adddo() {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -200,9 +200,9 @@ class Exam extends CI_Controller {
 	}
 	
 	// =============== 考生 编辑 ========================
-	public function kaosheng_edit($id = 1) {
+	public function exam_edit($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -229,9 +229,9 @@ class Exam extends CI_Controller {
 	}
 	
 	// =============== 考生 编辑 do ========================
-	public function kaosheng_editdo($id = 1) {
+	public function exam_editdo($id = 1) {
 		
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -537,14 +537,14 @@ class Exam extends CI_Controller {
 	}
 	
 	// =============== 考生 删除 ========================
-	public function kaosheng_del($id) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+	public function exam_del($id) {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';

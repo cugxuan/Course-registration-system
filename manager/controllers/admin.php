@@ -7,13 +7,13 @@ class Admin extends CI_Controller {
 		parent::__construct ();
 	}
 	public function index() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -28,13 +28,13 @@ class Admin extends CI_Controller {
 	 */
 	// =============== 管理员 列表 ========================
 	public function admin_list($page = 1) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -56,18 +56,18 @@ class Admin extends CI_Controller {
 		$offset = ($page - 1) * $num;
 		
 		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'admin', $num, $offset );
+		$list ['list'] = $this->Data_model->get_data_bypage ( 'id ASC', 'admin_core', $num, $offset );
 		
 		$data ['title'] = '管理员列表 - ';
 		$data ['curbig'] = 5; // current
 		$data ['cursmal'] = 52; // class="current"
 		
 		$list ['info'] = '管理员';
-		$list ['total_rows'] = $this->db->count_all ( 'admin' );
+		$list ['total_rows'] = $this->db->count_all ( 'admin_core' );
 		
 		$config ['page_url'] = 'inf/admin_list';
 		$config ['page_size'] = $num;
-		$config ['rows_num'] = $this->db->count_all ( 'admin' );
+		$config ['rows_num'] = $this->db->count_all ( 'admin_core' );
 		$config ['page_num'] = $page;
 		$this->load->library ( 'Custom_pagination' );
 		$this->custom_pagination->init ( $config );
@@ -79,13 +79,13 @@ class Admin extends CI_Controller {
 	
 	// =============== 管理员 添加 ========================
 	public function admin_add() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'manage_role' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -107,13 +107,13 @@ class Admin extends CI_Controller {
 	
 	// =============== 添加 管理员 do ========================
 	public function admin_adddo() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -125,26 +125,30 @@ class Admin extends CI_Controller {
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		
-		$manage_name =  trim(htmlspecialchars ( $this->input->post ( 'manage_name' ) ));
-		$manage_password =  trim(htmlspecialchars ( $this->input->post ( 'manage_password' ) ));
-		$manage_truename =  trim(htmlspecialchars ( $this->input->post ( 'manage_truename' ) ));
-		$manage_isstop =  trim(htmlspecialchars ( $this->input->post ( 'manage_isstop' ) ));
-
-		$manage_role =  trim(htmlspecialchars ( $this->input->post ( 'manage_role' ) ));
+		$manage_name =  trim(htmlspecialchars ( $this->input->post ( 'id' ) ));
+		$manage_password =  trim(htmlspecialchars ( $this->input->post ( 'password1' ) ));
+		$name =  trim(htmlspecialchars ( $this->input->post ( 'name' ) ));
+        $statement =  trim(htmlspecialchars ( $this->input->post ( 'statement' ) ));
 
 		
 		if ($manage_name == '') {
 			$status ['msg'] = '用户名不能为空，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("标题不能为空！");';
+			echo '<script>alert("用户名不能为空！");';
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
-		
+		if (strlen($manage_name)!=4) {
+			$status ['msg'] = '管理员用户名为4位，请填写正确！';
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("管理员用户名为4位，请填写正确！");';
+			echo 'window.location.href="' . $status ['where'] . '";</script>';
+			exit ();
+		}
 		$this->load->model ( 'Data_model' );
 		$data ['query'] = $this->Data_model->get_exists_data ( array (
-				'manage_name' => $manage_name 
-		), 'admin' );
+				'id' => $manage_name 
+		), 'admin_core' );
 		
 		if ($data ['query'] > 0) {
 			$status ['msg'] = '用户名存在，添加失败！';
@@ -159,14 +163,13 @@ class Admin extends CI_Controller {
 		$data ['cursmal'] = 51; // class="current"
 		
 		$post = array (
-				'manage_name' => $manage_name,
-				'manage_password' => md5 ( md5 ( $manage_password ) ),
-				'manage_truename' => $manage_truename,
-				'manage_isstop' => $manage_isstop,
-				'manage_role' => $manage_role 
+				'id' => $manage_name,
+				'password' => md5 ( md5 ( $manage_password ) ),
+				'name' => $name,
+				'statement' => $statement
 		);
 		
-		$this->Data_model->insert_data ( $post, 'admin' );
+		$this->Data_model->insert_data ( $post, 'admin_core' );
 		$status ['msg'] = '添加成功！';
 		
 		$this->load->view ( 'status', $status );
@@ -174,13 +177,13 @@ class Admin extends CI_Controller {
 	
 	// =============== 管理员 编辑 ========================
 	public function admin_edit($id = 1) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'manage_role' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -190,7 +193,7 @@ class Admin extends CI_Controller {
 		$id =  trim(htmlspecialchars ( $id ));
 		
 		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_adata ( $id, 'admin' );
+		$list ['list'] = $this->Data_model->get_adata ( $id, 'admin_core' );
 		
 		$data ['title'] = '管理员编辑 - ';
 		$data ['curbig'] = 5; // current
@@ -205,13 +208,13 @@ class Admin extends CI_Controller {
 	
 	// =============== 管理员 编辑 do ========================
 	public function admin_editdo($id = 1) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -222,11 +225,11 @@ class Admin extends CI_Controller {
 		$id =  trim(htmlspecialchars ( $id ));
 		
 		// $manage_name=htmlspecialchars($this->input->post('manage_name'));
-		$manage_password = trim(htmlspecialchars ( $this->input->post ( 'manage_password' ) ));
-		$manage_truename = htmlspecialchars ( $this->input->post ( 'manage_truename' ) );
-		$manage_isstop = trim(htmlspecialchars ( $this->input->post ( 'manage_isstop' ) ));
+		$manage_password = trim(htmlspecialchars ( $this->input->post ( 'password1' ) ));
+		$name = htmlspecialchars ( $this->input->post ( 'name' ) );
+		//$manage_isstop = trim(htmlspecialchars ( $this->input->post ( 'manage_isstop' ) ));
 
-		$manage_role =  trim(htmlspecialchars ( $this->input->post ( 'manage_role' ) ));
+		$statement =  trim(htmlspecialchars ( $this->input->post ( 'statement' ) ));
 
 		
 		$data ['title'] = '管理员 - ';
@@ -235,21 +238,19 @@ class Admin extends CI_Controller {
 		
 		if (! empty ( $manage_password )) {
 			$post = array (
-					'manage_password' => md5 ( md5 ( $manage_password ) ),
-					'manage_truename' => $manage_truename,
-					'manage_isstop' => $manage_isstop,
-					'manage_role' => $manage_role 
+					'password' => md5 ( md5 ( $manage_password ) ),
+					'name' => $name,
+					'statement' => $statement 
 			);
 		} else {
 			$post = array (
-					'manage_truename' => $manage_truename,
-					'manage_isstop' => $manage_isstop,
-					'manage_role' => $manage_role 
+					'name' => $name,
+					'statement' => $statement
 			);
 		}
 		
 		$this->load->model ( 'Data_model' );
-		$this->Data_model->update_data ( $id, $post, 'admin' );
+		$this->Data_model->update_data ( $id, $post, 'admin_core' );
 		
 		$status ['msg'] = '编辑管理员成功！';
 		$this->load->view ( 'status', $status );
@@ -257,13 +258,13 @@ class Admin extends CI_Controller {
 	
 	// =============== 管理员 删除 ========================
 	public function admin_del($id) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -286,7 +287,7 @@ class Admin extends CI_Controller {
 		}
 		
 		$this->load->model ( 'Data_model' );
-		$data ['query'] = $this->Data_model->delete_data ( $id, 'admin' );
+		$data ['query'] = $this->Data_model->delete_data ( $id, 'admin_core' );
 		$status ['msg'] = '删除成功！';
 		
 		$this->load->view ( 'status', $status );

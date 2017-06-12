@@ -16,15 +16,15 @@
           <table>
             <tbody>
 <tr>
-<td>尊敬的 <span style="font-size:16px; color:#FF0000; font-weight:500;"><?php echo $manage_truename;?></span>
+<td>尊敬的 <span style="font-size:16px; color:#FF0000; font-weight:500;"><?php echo $name;?></span>
 
 <?php
-$p=0;
-switch($manage_role){
+$p=-1;
+switch($statement){
+case "0":
+   $p=0;break;
 case "1":
-   $p=1;break;
-case "2":
-  $p=2;break; 
+  $p=1;break; 
   case "3":
    $p=3;break; 
    case "10":
@@ -35,7 +35,7 @@ case "2":
     <br /><br />
 			<?php  if($p==1){echo '<font color=red>';}?>1.招生人员；<?php  if($p==1){echo '</font>';}?><br /><br />
 
-			<?php  if($p==10){echo '<font color=red>';}?>2.超级管理员 为拥有所有权限.<?php  if($p==10){echo '</font>';}?><br /><br /><br />
+			<?php  if($p==0){echo '<font color=red>';}?>0.超级管理员 为拥有所有权限.<?php  if($p==0){echo '</font>';}?><br /><br /><br />
 			
 			<h5 style="color:#FF0000">提示：如果您没有相应操作权限，请联系网站管理员分配相应操作权限！</h5>
 			</td>

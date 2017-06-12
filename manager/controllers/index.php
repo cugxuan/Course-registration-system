@@ -80,62 +80,98 @@ class Index extends CI_Controller {
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
-		
 		$this->load->model ( 'Data_model' );
-		$data ['query'] = $this->Data_model->get_exists_data ( array (
-				'manage_name' => $manage_name,
-				'manage_password' => md5 ( md5 ( $manage_password ) ),
-				'manage_isstop' => 0 
-		), 'admin' );
-		
-		if ($data ['query'] == 0) {
-			$status ['msg'] = '用户名或者密码错误，登录失败！';
+		if(strlen($manage_name)==4){//此用户为管理员
+			$data ['query'] = $this->Data_model->get_exists_data ( array (
+					'id' => $manage_name,
+					'password' => md5 ( md5 ( $manage_password ) ),
+			), 'admin_core' );
+			
+			if ($data ['query'] == 0) {
+				$status ['msg'] = '用户名或者密码错误，登录失败！';
+				header ( "Content-Type:text/html;charset=utf-8" );
+				echo '<script>alert("用户名或者密码错误 , 请检查输入值！");';
+				echo 'window.location.href="' . $status ['where'] . '";</script>';
+				exit ();
+			}
+			
+			$data = $this->Data_model->get_login ( array (
+					'id' => $manage_name,
+					'password' => md5 ( md5 ( $manage_password ) ),
+			), 'admin_core' );
+			$this->session->set_userdata ( 'id', $data ['id'] );
+			$this->session->set_userdata ( 'name', $data ['name'] );
+			$this->session->set_userdata ( 'statement', $data ['statement'] );
+			/*$this->Data_model->update_data ( $data ['id'], array (
+					'login_count' => $data ['login_count'] + 1,
+					'last_ip' => $this->input->ip_address (),
+					'last_login_time' => time ()
+			), 'admin' );*/
+			
+		}
+		else if(strlen($manage_name)==11){//此用户为考生
+			$data ['query'] = $this->Data_model->get_exists_data ( array (
+					'id' => $manage_name,
+					'password' => md5 ( md5 ( $manage_password ) ),
+			), 'student' );
+			
+			if ($data ['query'] == 0) {
+				$status ['msg'] = '用户名或者密码错误，登录失败！';
+				header ( "Content-Type:text/html;charset=utf-8" );
+				echo '<script>alert("用户名或者密码错误 , 请检查输入值！");';
+				echo 'window.location.href="' . $status ['where'] . '";</script>';
+				exit ();
+			}
+			
+			$data = $this->Data_model->get_login ( array (
+					'id' => $manage_name,
+					'password' => md5 ( md5 ( $manage_password ) ),
+			), 'student' );
+			$this->session->set_userdata ( 'id', $data ['id'] );
+			$this->session->set_userdata ( 'name', $data ['name'] );
+			/*$this->Data_model->update_data ( $data ['id'], array (
+					'login_count' => $data ['login_count'] + 1,
+					'last_ip' => $this->input->ip_address (),
+					'last_login_time' => time ()
+			), 'admin' );*/
+			
+		}
+		else{
+			$status ['msg'] = '用户名输入错误，登陆失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("用户名或者密码错误 , 请检查输入值！");';
+			echo '<script>alert("用户名长度不对！");';
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
 		
-		$data = $this->Data_model->get_login ( array (
-				'manage_name' => $manage_name,
-				'manage_password' => md5 ( md5 ( $manage_password ) ),
-				'manage_isstop' => 0 
-		), 'admin' );
-		
-		$this->Data_model->update_data ( $data ['id'], array (
-				'login_count' => $data ['login_count'] + 1,
-				'last_ip' => $this->input->ip_address (),
-				'last_login_time' => time () 
-		), 'admin' );
-		
-		$this->session->set_userdata ( 'manage_name', $data ['manage_name'] );
+		/*$this->session->set_userdata ( 'manage_name', $data ['manage_name'] );
 		$this->session->set_userdata ( 'manage_truename', $data ['manage_truename'] );
-		$this->session->set_userdata ( 'manage_role', $data ['manage_role'] );
+		$this->session->set_userdata ( 'manage_role', $data ['manage_role'] );*/
 		
 		redirect ( site_url ( 'index/manage' ) );
 	}
 	
 	
 	public function manage() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
 		
-// 		$data ['title'] = '系统管理 - ';
-// 		$data ['curbig'] = 1; // current
-// 		$data ['cursmal'] = 0; // class="current"
+ 		$data ['title'] = '系统管理 - ';
+ 		$data ['curbig'] = 1; // current
+ 		$data ['cursmal'] = 0; // class="current"
 		
-// 		$list ['manage_name'] = $this->session->userdata ( 'manage_name' );
-// 		$list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
-// 		$list ['manage_role'] = $this->session->userdata ( 'manage_role' );
+ 		$list ['id'] = $this->session->userdata ( 'id' );
+ 		$list ['name'] = $this->session->userdata ( 'name' );
+ 		$list ['statement'] = $this->session->userdata ( 'statement' );
 		
-// 		$this->load->view ( 'menu', $data );
-// 		$this->load->view ( 'manage', $list );
+ 		$this->load->view ( 'menu', $data );
+ 		$this->load->view ( 'manage', $list );
 		
-		$data ['title'] = '考生信息 - ';
+		/*$data ['title'] = '考生信息 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 0; // class="current"
 		
@@ -144,7 +180,7 @@ class Index extends CI_Controller {
 		$list ['manage_role'] = $this->session->userdata ( 'manage_role' );
 		
 		$this->load->view ( 'menu_kaosheng', $data );
-		$this->load->view ( 'kaosheng_view', $list );
+		$this->load->view ( 'kaosheng_view', $list );*/
 	}
 	
 	public function register(){
@@ -152,18 +188,18 @@ class Index extends CI_Controller {
 	    $data ['curbig'] = 1; // current
 	    $data ['cursmal'] = 11; // class="current"
 	    
-	    $list ['manage_name'] = $this->session->userdata ( 'manage_name' );
-	    $list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
-	    $list ['manage_role'] = $this->session->userdata ( 'manage_role' );
+	    $list ['id'] = $this->session->userdata ( 'id' );
+	    $list ['name'] = $this->session->userdata ( 'name' );
+	    $list ['statement'] = $this->session->userdata ( 'statement' );
 	    
 	    $this->load->view ('menu_register',$data);
 	    $this->load->view ( 'kaosheng_view', $list );
 	}
 	
 	public function logout() {
-		$this->session->unset_userdata ( 'manage_name' );
-		$this->session->unset_userdata ( 'manage_truename' );
-		$this->session->unset_userdata ( 'manage_role' );
+		$this->session->unset_userdata ( 'id' );
+		$this->session->unset_userdata ( 'name' );
+		$this->session->unset_userdata ( 'statement' );
 		
 		header ( "Content-Type:text/html;charset=utf-8" );
 		echo '<script>alert("成功退出登录！");';

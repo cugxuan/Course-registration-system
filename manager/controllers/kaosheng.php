@@ -7,7 +7,7 @@ class Kaosheng extends CI_Controller {
 		parent::__construct ();
 	}
 	public function index() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -24,7 +24,7 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 列表 ========================
 	public function kaosheng_list($page = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -46,18 +46,18 @@ class Kaosheng extends CI_Controller {
 		$offset = ($page - 1) * $num;
 		
 		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'kaosheng', $num, $offset );
+		$list ['list'] = $this->Data_model->get_data_bypage ( 'id asc', 'student', $num, $offset );
 		
 		$data ['title'] = '考生列表 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 12; // class="current"
 		
 		$list ['info'] = '考生';
-		$list ['total_rows'] = $this->db->count_all ( 'kaosheng' );
+		$list ['total_rows'] = $this->db->count_all ( 'student' );
 		
 		$config ['page_url'] = 'kaosheng/kaosheng_list';
 		$config ['page_size'] = $num;
-		$config ['rows_num'] = $this->db->count_all ( 'kaosheng' );
+		$config ['rows_num'] = $this->db->count_all ( 'student' );
 		$config ['page_num'] = $page;
 		$this->load->library ( 'Custom_pagination' );
 		$this->custom_pagination->init ( $config );
@@ -67,10 +67,10 @@ class Kaosheng extends CI_Controller {
 		$this->load->view ( 'kaosheng_list', $list );
 	}
 	
-	// =============== 考生 添加 ========================
+	// =============== 考生 添加 ========================已进行更改
 	public function kaosheng_add() {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -79,8 +79,8 @@ class Kaosheng extends CI_Controller {
 
 		
 		$this->load->model ( 'Data_model' );
-		$list['daqu']=$this->Data_model->get_data('id asc','daqu');
-		$list['school']=$this->Data_model->get_data('id asc','school');
+		//$list['daqu']=$this->Data_model->get_data('id asc','daqu');
+		//$list['school']=$this->Data_model->get_data('id asc','school');
 		
 		$data ['title'] = '考生添加 - ';
 		$data ['curbig'] = 1; // current
@@ -110,9 +110,9 @@ class Kaosheng extends CI_Controller {
 	    $this->load->view ( 'menu_register',$data);
 	    $this->load->view ( 'kaosheng_edit', $list );
 	}
-	// =============== 添加 考生 do ========================
+	// =============== 添加 考生 do ========================已进行更改
 	public function kaosheng_adddo() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -123,42 +123,33 @@ class Kaosheng extends CI_Controller {
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		
-		$daqu_num =  intval(trim(htmlspecialchars ( $this->input->post ( 'daqu_num' ) )));
+		$id=(trim(htmlspecialchars ( $this->input->post ( 'id' ) )));
+		$password =  trim(htmlspecialchars ( $this->input->post ( 'password' ) ));
 		$name =  trim(htmlspecialchars ( $this->input->post ( 'name' ) ));
-		$school_name =  trim(htmlspecialchars ( $this->input->post ( 'school_name' ) ));
-		$school_name2 =  trim(htmlspecialchars ( $this->input->post ( 'school_name2' ) ));
-		$sfz =  trim(htmlspecialchars ( $this->input->post ( 'sfz' ) ));
+		$credit_card =trim(htmlspecialchars ( $this->input->post ( 'credit_card' ) ));
 		$sex =  trim(htmlspecialchars ( $this->input->post ( 'sex' ) ));
-		$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
-		$address=  trim(htmlspecialchars ( $this->input->post ( 'address' ) ));
-		$fmqo_name=  trim(htmlspecialchars ( $this->input->post ( 'fmqo_name' ) ));
-		$tel=  trim(htmlspecialchars ( $this->input->post ( 'tel' ) ));
-		$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));
+		$phone= trim(htmlspecialchars ( $this->input->post ( 'phone' ) ));
+		$local= trim(htmlspecialchars ( $this->input->post ( 'local' ) ));
 		
-		if ($daqu_num== '' || $name=='' || $school_name=='' || $sfz=='' || $sex=='' || $birthday=='' || $address=='' || $tel=='') {
+		if ($id== '' || $password=='' || $name=='' || $credit_card=='' || $sex=='' || $phone=='' || $local=='') {
 			$status ['msg'] = '请填写完整，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请填写完整！");';
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
-			
-		if($school_name=='其他' && $school_name2==''){
-			$status ['msg'] = '请填写学校，添加失败！';
+		if(strlen($id)!=11){
+			$status ['msg'] = '考生号填写错误！';
 			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("请填写学校！");';
+			echo '<script>alert("考生号填写错误，考生号为11位！");';
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
 		
-		if($school_name=='其他'){
-			$school_name=$school_name2;
-		}
-		
 		$this->load->model ( 'Data_model' );
 		$data ['query'] = $this->Data_model->get_exists_data ( array (
-				'sfz' => $sfz
-		), 'kaosheng' );
+				'credit_card' => $credit_card
+		), 'student' );
 		
 		if ($data ['query'] > 0) {
 			$status ['msg'] = '身份证已存在，添加失败！';
@@ -169,7 +160,7 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		$this->db->trans_start();
-		$year=date('Y',time()); //年  如：2013
+		/*$year=date('Y',time()); //年  如：2013
 		$getBMList=$this->Data_model->get_wdata_bypage(array('daqu_num'=>$daqu_num),'id desc','kaosheng',0,1);
 
 		$daquNumStr=substr('00'.$daqu_num, -2);//默认大区num
@@ -180,36 +171,34 @@ class Kaosheng extends CI_Controller {
 			$nowQuKSNum=$maxQuKSNum+1;			
 			$nowQuKSNumStr=substr('00'.$nowQuKSNum, -3);
 		}
-		$bmid=$year.$daquNumStr.$nowQuKSNumStr;  //报名号
+		$bmid=$year.$daquNumStr.$nowQuKSNumStr;  //报名号*/
 				
 		$data ['title'] = '考生 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 11; // class="current"
-		
-		$time=time();
+		if($sex==1){
+			$sex_='男';
+		}
+		else if($sex==0){
+			$sex_='女';
+		}
+		//$time=time();
 		$post = array (
-				'daqu_num' => $daquNumStr,
-				'kaosheng_num' => $nowQuKSNumStr,
-				'kaosheng_no' => $bmid,
+				'id' => $id,
+				'password' => md5 ( md5 ( $password ) ),
+				'name' => $name,
 			//	'zuowei_id' => $zuowei_id,
 			//	'zuowei_all_num' => $zuowei_all_num,
-				'name' => $name,
-				'sex' => $sex,
-				'birthday' => $birthday,
-				'school_name' => $school_name,
-				'sfz' => $sfz,
-				'address' => $address,
-				'fmqo_name' => $fmqo_name,
-				'tel' => $tel,
-				'photo' => $photo,
-				'create_time' => $time,
-				'update_time' => $time
+				'credit_card' => $credit_card,
+				'sex' => $sex_,
+				'phone'=>$phone,
+				'local' => $local
 		);
-		$KSId=$this->Data_model->insert_data ( $post, 'kaosheng' );		
+		$this->Data_model->insert_data ( $post, 'student' );		
 		$this->db->trans_complete();
 		
-		$status ['msg'] = '添加成功,现在开始分配座位！';
-		$status ['where'] = site_url("kaosheng/kaosheng_fp/".$KSId);
+		$status ['msg'] = '添加成功！';
+		//$status ['where'] = site_url("kaosheng//");
 		
 		$this->load->view ( 'status', $status );
 	}
@@ -217,7 +206,7 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 编辑 ========================
 	public function kaosheng_edit($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -225,17 +214,18 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		
-		$id = intval(trim(htmlspecialchars ( $id )));
+		$id = trim(htmlspecialchars ( $id ));
 		
 		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_adata ( $id, 'kaosheng' );
-		$list['daqu']=$this->Data_model->get_data('id asc','daqu');
-		$list['school']=$this->Data_model->get_data('id asc','school');
+		$list ['list'] = $this->Data_model->get_adata ( $id, 'student' );
+		//$list['daqu']=$this->Data_model->get_data('id asc','daqu');
+		//$list['school']=$this->Data_model->get_data('id asc','school');
 		
 		$data ['title'] = '考生编辑 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 12; // class="current"
 		
+		$list ['id']=$id;
 		$list ['info'] = '考生';
 		$list ['action'] = 'edit';
 		
@@ -246,7 +236,7 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 编辑 do ========================
 	public function kaosheng_editdo($id = 1) {
 		
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -258,19 +248,19 @@ class Kaosheng extends CI_Controller {
 		$id = intval(trim(htmlspecialchars ( $id )));
 		
 				
-		$daqu_num =  intval(trim(htmlspecialchars ( $this->input->post ( 'daqu_num' ) )));
+		//$daqu_num =  intval(trim(htmlspecialchars ( $this->input->post ( 'daqu_num' ) )));
 		$name =  trim(htmlspecialchars ( $this->input->post ( 'name' ) ));
-		$school_name =  trim(htmlspecialchars ( $this->input->post ( 'school_name' ) ));
-		$school_name2 =  trim(htmlspecialchars ( $this->input->post ( 'school_name2' ) ));
-		$sfz =  trim(htmlspecialchars ( $this->input->post ( 'sfz' ) ));
+		//$school_name =  trim(htmlspecialchars ( $this->input->post ( 'school_name' ) ));
+		//$school_name2 =  trim(htmlspecialchars ( $this->input->post ( 'school_name2' ) ));
+		$credit_card =  trim(htmlspecialchars ( $this->input->post ( 'credit_card' ) ));
 		$sex =  trim(htmlspecialchars ( $this->input->post ( 'sex' ) ));
-		$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
-		$address=  trim(htmlspecialchars ( $this->input->post ( 'address' ) ));
-		$fmqo_name=  trim(htmlspecialchars ( $this->input->post ( 'fmqo_name' ) ));
-		$tel=  trim(htmlspecialchars ( $this->input->post ( 'tel' ) ));
-		$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));
+		//$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
+		$local=  trim(htmlspecialchars ( $this->input->post ( 'local' ) ));
+		//$fmqo_name=  trim(htmlspecialchars ( $this->input->post ( 'fmqo_name' ) ));
+		$phone=  trim(htmlspecialchars ( $this->input->post ( 'phone' ) ));
+		//$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));
 		
-		if ($daqu_num== '' || $name=='' || $school_name=='' || $sfz=='' || $sex=='' || $birthday=='' || $address=='' || $tel=='') {
+		if ($name=='' ||$credit_card=='' || $sex=='' || $local=='' || $phone=='') {
 			$status ['msg'] = '请填写完整，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请填写完整！");';
@@ -278,40 +268,27 @@ class Kaosheng extends CI_Controller {
 			exit ();
 		}
 		
-		if($school_name=='其他' && $school_name2==''){
-			$status ['msg'] = '请填写学校，添加失败！';
-			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("请填写学校！");';
-			echo 'window.location.href="' . $status ['where'] . '";</script>';
-			exit ();
-		}
-		
-		if($school_name=='其他'){
-			$school_name=$school_name2;
-		}
 		$this->load->model ( 'Data_model' );		
 		$time=time();
-				
+				if($sex==1){
+					$sex_='男';
+				}
+				else if($sex==0){
+					$sex_='女';
+				}
 		$this->db->trans_start();
 		$post = array (
-				'school_name' => $school_name,
 				'name' => $name,
-				'sex' => $sex,
-				'birthday' => $birthday,
-				'sfz' => $sfz,
-				'address' => $address,
-				'fmqo_name' => $fmqo_name,
-				'tel' => $tel,
-				'photo' => $photo,
-				'update_time' => $time
+				'credit_card' => $credit_card,
+				'sex' => $sex_,
+				'phone' => $phone,
+				'local' => $local,
 		);
 		
-		$KSData = $this->Data_model->get_adata ( $id, 'kaosheng' );
-		$oldDaQuNum=$KSData['daqu_num'];
-		$oldSchoolName=$KSData['school_name'];
+		$KSData = $this->Data_model->get_adata ( $id, 'student' );
 		
 		//如果用户修改了学生的 大区num 则重新生成报名号
-		if(($daqu_num != $oldDaQuNum)){			
+		/*if(($daqu_num != $oldDaQuNum)){			
 			
 			$year=date('Y',time()); //年  如：2013
 			$getBMList=$this->Data_model->get_wdata_bypage(array('daqu_num'=>$daqu_num),'id desc','kaosheng',0,1);
@@ -344,7 +321,14 @@ class Kaosheng extends CI_Controller {
 					'create_time' => $time,
 					'update_time' => $time
 			);
-		}
+		}*/
+		$post = array (
+				'name' => $name,
+				'credit_card' => $credit_card,
+				'sex' => $sex,
+				'phone' => $phone,
+				'local' => $local,
+		);
 				
 		
 		$data ['title'] = '考生 - ';
@@ -353,7 +337,7 @@ class Kaosheng extends CI_Controller {
 		
 		$time=time();
 				
-		$this->Data_model->update_data ( $id, $post, 'kaosheng' );
+		$this->Data_model->update_data ( $id, $post, 'student' );
 		$this->db->trans_complete();
 		
 		$status ['msg'] = '编辑考生成功！';
@@ -440,7 +424,7 @@ class Kaosheng extends CI_Controller {
 	}
 	
 	//考生座位分配
-	public function kaosheng_fp($id,$kaochang_num=1){
+	/*public function kaosheng_fp($id,$kaochang_num=1){
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		$systemConfigId=1;
 		
@@ -489,7 +473,7 @@ class Kaosheng extends CI_Controller {
 		
 		
 		
-	}
+	}*/
 	
 	public function kaosheng_fp_do($id,$zwid){
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
@@ -553,13 +537,13 @@ class Kaosheng extends CI_Controller {
 	
 	// =============== 考生 删除 ========================
 	public function kaosheng_del($id) {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		if ($this->session->userdata ( 'manage_role' ) != '10') {
+		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -567,7 +551,7 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		$id = intval(trim(htmlspecialchars ( $id )));
+		$id = trim(htmlspecialchars ( $id ));
 		$data ['title'] = '考生删除 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 12; // class="current"
@@ -582,7 +566,7 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		$this->load->model ( 'Data_model' );
-		$data ['query'] = $this->Data_model->delete_data ( $id, 'kaosheng' );
+		$data ['query'] = $this->Data_model->delete_data ( $id, 'student' );
 		$status ['msg'] = '删除成功！';
 		
 		$this->load->view ( 'status', $status );

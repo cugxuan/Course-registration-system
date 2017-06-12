@@ -44,12 +44,18 @@
         <tr>
           <td>考生号 : </td>
           <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['name'])){echo $list['name'];}
-			} ?>" />(即学号，如： 20151003756)</td>
+			if(isset($list['id'])){echo $list['id'];}
+			} ?>" <?php if($action=='add'){}else{
+			if(isset($list['id'])){echo 'disabled="disabled" ';}
+			}?> />(即学号，如： 20151003756)</td>
+			</tr>
+			
           <td>密码 : </td>
           <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['name'])){echo $list['name'];}
-			} ?>" /></td>
+			if(isset($list['password'])){echo '密码不可编辑';}
+			} ?>" <?php if($action=='add'){}else{
+			if(isset($list['id'])){echo 'disabled="disabled" ';}
+			}?>/></td>
         </tr>
 		<tr>
           <td>姓名 : </td>
@@ -57,8 +63,8 @@
 			if(isset($list['name'])){echo $list['name'];}
 			} ?>" /></td>
           <td>身份证号  :          </td>
-          <td><input class="text-input" type="text" id="sfz" name="sfz" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['sfz'])){echo $list['sfz'];}
+          <td><input class="text-input" type="text" id="credit_card" name="credit_card" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['credit_card'])){echo $list['credit_card'];}
 			} ?>" /></td>
         </tr>
 		
@@ -71,15 +77,15 @@
 			if($list['sex']=='0'){echo 'selected';}}?>>女</option>
 			</select></td>
           <td>联系电话  :          </td>
-          <td><input class="text-input" type="text" id="tel" name="tel" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['tel'])){echo $list['tel'];}
+          <td><input class="text-input" type="text" id="phone" name="phone" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['phone'])){echo $list['phone'];}
 			} ?>" /></td>
         </tr>
         
         <tr>
           <td>所在地 :           </td>
-          <td><input class="text-input" type="text" id="address" name="address" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['address'])){echo $list['address'];}
+          <td><input class="text-input" type="text" id="local" name="local" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['local'])){echo $list['local'];}
 			} ?>" /></td>
           <td>           </td>
           <td class="text-input"></td>
@@ -119,9 +125,9 @@
 		
 		</div>
 <script language="javascript" type="text/javascript"> 
-$("#school_name").chained("#daqu_num");
+//$("#school_name").chained("#daqu_num");
 
-$(function()
+/*$(function()
 {
 	$("#school_name").change(function(){
 		 if($("#school_name").val()=="其他"){
@@ -130,29 +136,22 @@ $(function()
 		 $("#school_name2").hide();
 		 }
 	
-	});
+	});*/
 
 	$("form").submit(function()
 	{
 		
-	  if($("#daqu_num").val()==""){
-		 alert("请选择大区！");
-	  	$("#daqu_num").focus();
+	  if($("#id").val()==""){
+		 alert("请输入考生号（学号）！");
+	  	$("#id").focus();
 	 	 return false;		
 	 }
-	  if($("#school_name").val()==""){
-		 alert("请选择学校！");
-	  	$("#school_name").focus();
+	  if($("#password").val()==""){
+		 alert("请输入密码！");
+	  	$("#password").focus();
 	 	 return false;		
 	 }
-	 
-	 if($("#school_name").val()=="其他" && $("#school_name2").val()==""){
-		  alert("请填写学校！");
-			$("#school_name2").focus();
-			 return false;	
-	 }
-	 
-		 if($("#name").val()==""){
+	 if($("#name").val()==""){
 		 alert("请输入学生姓名！");
 	  	$("#name").focus();
 	 	 return false;		
@@ -164,35 +163,23 @@ $(function()
 	 	 return false;		
 	 }
 	 
-	 if($("#birthday").val()==""){
-		 alert("请输入出生年月！");
-	  	$("#birthday").focus();
+	 if($("#credit_card").val()==""){
+		 alert("请输入身份证号！");
+	  	$("#credit_card").focus();
 	 	 return false;		
 	 }
 	 
-	  if($("#sfz").val()==""){
-		 alert("请输入身份证！");
-	  	$("#sfz").focus();
+	  if($("#phone").val()==""){
+		 alert("请输入手机号！");
+	  	$("#phone").focus();
 	 	 return false;		
 	 }
 	 
-	  if($("#address").val()==""){
-		 alert("请输入家庭住址！");
-	  	$("#address").focus();
+	  if($("#local").val()==""){
+		 alert("请输入所在地！");
+	  	$("#local").focus();
 	 	 return false;		
 	 }
-	 
-	if($("#fmqo_name").val()==""){
-		 alert("请输入父母姓名！");
-	  	$("#fmqo_name").focus();
-	 	 return false;		
-	 } 
-	 
-	 if($("#tel").val()==""){
-		 alert("请输入电话号码！");
-	  	$("#tel").focus();
-	 	 return false;		
-	 } 
 	 
 	 
 			

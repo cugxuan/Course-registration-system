@@ -29,7 +29,7 @@
 </head>
 <body>
 
-// <?php
+//<?php
 // 		if($this->session->userdata('manage_role')==''){
 // 			echo '<script>alert("请登录 ！");';
 // 			echo 'window.location.href="'.site_url('index').'";</script>';
@@ -45,13 +45,13 @@
       <!-- Logo (221px wide) -->
       <img id="logo" src="<?php echo base_url();?>public/images/admin/images/logo.png" alt="Simpla Admin logo" />
      
-      <div id="profile-links"> 你好,  <?php echo $this->session->userdata('manage_name');?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      <div id="profile-links"> 你好,  <?php echo $this->session->userdata('name');?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
         <br />
         <a href="<?php echo site_url('index/manage');?>" title="后台首页">后台首页</a> |  &nbsp;<a href="<?php echo site_url('index/logout');?>" title="退出登录">退出登录</a> </div>
       <ul id="main-nav">
         <!--  Menu  Start -->
         <?php
-		if($this->session->userdata('manage_role')=='1' || $this->session->userdata('manage_role')=='10'){
+		if($this->session->userdata('statement')=='1' || $this->session->userdata('statement')=='0'){
 		?>
 	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生管理 </a>
           <ul>
@@ -71,7 +71,6 @@
 			
           </ul>
         </li>
-		
 		<?php
 		}
 		?>
@@ -80,7 +79,7 @@
 		 	
 		
 		<?php
-		if($this->session->userdata('manage_role')=='10'){
+		if($this->session->userdata('manage_role')=='0'){
 		?>
         <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==5){echo '  current';}?>"> 管理员管理 </a>
           <ul>
