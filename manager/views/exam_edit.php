@@ -44,34 +44,34 @@
         <tr>
           <td>考试编号 : </td>
           <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['name'])){echo $list['name'];}
+			if(isset($list['id'])){echo $list['id'];}
 			} ?>" /></td>
           <td>科目: </td>
-          <td><input class="text-input" type="text" id="course" name="course" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['name'])){echo $list['name'];}
+          <td><input class="text-input" type="text" id="subject" name="subject" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['subject'])){echo $list['subject'];}
 			} ?>" /></td>
         </tr>
 		<tr>
-          <td>起始时间 : </td>
-          <td><input class="text-input" type="text" id="stime" name="stime" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['name'])){echo $list['name'];}
-			} ?>" />(如201706171000)</td>
-          <td>终止时间  :          </td>
-          <td><input class="text-input" type="text" id="etime" name="etime" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['sfz'])){echo $list['sfz'];}
-			} ?>" />(如201706171200)</td>
+          <td>报名起始时间 : </td>
+          <td><input class="text-input" type="text" id="start_time" name="start_time" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['start_time'])){echo $list['start_time'];}
+			} ?>" />(如2017.06.01)</td>
+          <td>报名终止时间  :          </td>
+          <td><input class="text-input" type="text" id="deadline" name="deadline" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['deadline'])){echo $list['deadline'];}
+			} ?>" />(如2017.06.01)</td>
         </tr>
 		
         <tr>
           <td>地点 : </td>
-          <td><input class="text-input" type="text" id="pos" name="pos" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['tel'])){echo $list['tel'];}
+          <td><input class="text-input" type="text" id="location" name="location" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['location'])){echo $list['location'];}
 			} ?>" /></td>
           <td>人数容量 :          </td>
           <td><input class="text-input" type="text" id="capacity" name="capacity" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['tel'])){echo $list['tel'];}
+			if(isset($list['capacity'])){echo $list['capacity'];}
 			} ?>" /></td>
-        </tr>
+       </tr>
         
       </table>
 
@@ -107,80 +107,56 @@
 		
 		</div>
 <script language="javascript" type="text/javascript"> 
-$("#school_name").chained("#daqu_num");
+//$("#school_name").chained("#daqu_num");
 
 $(function()
 {
-	$("#school_name").change(function(){
+	/*$("#school_name").change(function(){
 		 if($("#school_name").val()=="其他"){
 			$("#school_name2").show();
 		 }else{
 		 $("#school_name2").hide();
 		 }
 	
-	});
+	});*/
 
 	$("form").submit(function()
 	{
 		
-	  if($("#daqu_num").val()==""){
-		 alert("请选择大区！");
-	  	$("#daqu_num").focus();
+	  if($("#id").val()==""){
+		 alert("请输入考试编号！");
+	  	$("#id").focus();
 	 	 return false;		
 	 }
-	  if($("#school_name").val()==""){
-		 alert("请选择学校！");
-	  	$("#school_name").focus();
+	  if($("#subject").val()==""){
+		 alert("请输入科目名称！");
+	  	$("#subject").focus();
 	 	 return false;		
 	 }
 	 
-	 if($("#school_name").val()=="其他" && $("#school_name2").val()==""){
-		  alert("请填写学校！");
-			$("#school_name2").focus();
-			 return false;	
-	 }
-	 
-		 if($("#name").val()==""){
-		 alert("请输入学生姓名！");
-	  	$("#name").focus();
+		 if($("#start_time").val()==""){
+		 alert("请输入报名开始时间！");
+	  	$("#start_time").focus();
 	 	 return false;		
 	 }
 		 
-	 if($("#sex").val()==""){
-		 alert("请选择性别！");
-	  	$("#sex").focus();
+	 if($("#deadline").val()==""){
+		 alert("请输入报名截止时间！");
+	  	$("#deadline").focus();
 	 	 return false;		
 	 }
 	 
-	 if($("#birthday").val()==""){
-		 alert("请输入出生年月！");
-	  	$("#birthday").focus();
+	 if($("#location").val()==""){
+		 alert("请输入考试的地点！");
+	  	$("#location").focus();
 	 	 return false;		
 	 }
 	 
-	  if($("#sfz").val()==""){
-		 alert("请输入身份证！");
-	  	$("#sfz").focus();
+	  if($("#capacity").val()==""){
+		 alert("请输入考试的人数容量！");
+	  	$("#capacity").focus();
 	 	 return false;		
 	 }
-	 
-	  if($("#address").val()==""){
-		 alert("请输入家庭住址！");
-	  	$("#address").focus();
-	 	 return false;		
-	 }
-	 
-	if($("#fmqo_name").val()==""){
-		 alert("请输入父母姓名！");
-	  	$("#fmqo_name").focus();
-	 	 return false;		
-	 } 
-	 
-	 if($("#tel").val()==""){
-		 alert("请输入电话号码！");
-	  	$("#tel").focus();
-	 	 return false;		
-	 } 
 	 
 	 
 			

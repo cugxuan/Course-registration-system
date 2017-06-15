@@ -108,19 +108,19 @@ class Exam extends CI_Controller {
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		
-		$daqu_num =  intval(trim(htmlspecialchars ( $this->input->post ( 'daqu_num' ) )));
-		$name =  trim(htmlspecialchars ( $this->input->post ( 'name' ) ));
-		$school_name =  trim(htmlspecialchars ( $this->input->post ( 'school_name' ) ));
-		$school_name2 =  trim(htmlspecialchars ( $this->input->post ( 'school_name2' ) ));
-		$sfz =  trim(htmlspecialchars ( $this->input->post ( 'sfz' ) ));
-		$sex =  trim(htmlspecialchars ( $this->input->post ( 'sex' ) ));
-		$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
+		$id =  intval(trim(htmlspecialchars ( $this->input->post ( 'id' ) )));
+		$subject =  trim(htmlspecialchars ( $this->input->post ( 'subject' ) ));
+		$start_time =  trim(htmlspecialchars ( $this->input->post ( 'start_time' ) ));
+		$deadline =  trim(htmlspecialchars ( $this->input->post ( 'deadline' ) ));
+		$location =  trim(htmlspecialchars ( $this->input->post ( 'location' ) ));
+		$capacity =  trim(htmlspecialchars ( $this->input->post ( 'capacity' ) ));
+		/*$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
 		$address=  trim(htmlspecialchars ( $this->input->post ( 'address' ) ));
 		$fmqo_name=  trim(htmlspecialchars ( $this->input->post ( 'fmqo_name' ) ));
 		$tel=  trim(htmlspecialchars ( $this->input->post ( 'tel' ) ));
-		$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));
+		$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));*/
 		
-		if ($daqu_num== '' || $name=='' || $school_name=='' || $sfz=='' || $sex=='' || $birthday=='' || $address=='' || $tel=='') {
+		if ($id== '' || $subject=='' || $start_time=='' || $deadline=='' || $location=='' || $capacity=='') {
 			$status ['msg'] = '请填写完整，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请填写完整！");';
@@ -128,7 +128,7 @@ class Exam extends CI_Controller {
 			exit ();
 		}
 			
-		if($school_name=='其他' && $school_name2==''){
+		/*if($school_name=='其他' && $school_name2==''){
 			$status ['msg'] = '请填写学校，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请填写学校！");';
@@ -139,16 +139,16 @@ class Exam extends CI_Controller {
 		if($school_name=='其他'){
 			$school_name=$school_name2;
 		}
-		
+		*/
 		$this->load->model ( 'Data_model' );
 		$data ['query'] = $this->Data_model->get_exists_data ( array (
-				'sfz' => $sfz
-		), 'kaosheng' );
+				'id' => $id
+		), 'exam' );
 		
 		if ($data ['query'] > 0) {
-			$status ['msg'] = '身份证已存在，添加失败！';
+			$status ['msg'] = '考试编号已存在，添加失败！';
 			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("身份证已存在,添加失败！");';
+			echo '<script>alert("考试编号已存在，添加失败！");';
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}

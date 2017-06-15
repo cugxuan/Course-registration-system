@@ -87,11 +87,12 @@ class Index extends CI_Controller {
 					'password' => md5 ( md5 ( $manage_password ) ),
 			), 'admin_core' );
 			
+
 			if ($data ['query'] == 0) {
 				$status ['msg'] = '用户名或者密码错误，登录失败！';
 				header ( "Content-Type:text/html;charset=utf-8" );
-				echo '<script>alert("用户名或者密码错误 , 请检查输入值！");';
-				echo 'window.location.href="' . $status ['where'] . '";</script>';
+				echo '<script>alert("123用户名或者密码错误 , 请检查输入值！'.$data ['query'].'");';
+ 				echo 'window.location.href="' . $status ['where'] . '";</script>';
 				exit ();
 			}
 			
@@ -115,6 +116,7 @@ class Index extends CI_Controller {
 					'password' => md5 ( md5 ( $manage_password ) ),
 			), 'student' );
 			
+
 			if ($data ['query'] == 0) {
 				$status ['msg'] = '用户名或者密码错误，登录失败！';
 				header ( "Content-Type:text/html;charset=utf-8" );

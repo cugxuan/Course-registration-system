@@ -70,12 +70,12 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 添加 ========================已进行更改
 	public function kaosheng_add() {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata( 'statement' ) == '') {
-			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("请登录 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
-			exit ();
-		}
+// 		if ($this->session->userdata( 'statement' ) == '') {
+// 			header ( "Content-Type:text/html;charset=utf-8" );
+// 			echo '<script>alert("请登录 ！");';
+// 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+// 			exit ();
+// 		}
 
 		
 		$this->load->model ( 'Data_model' );
@@ -89,7 +89,7 @@ class Kaosheng extends CI_Controller {
 		$list ['info'] = '考生';
 		$list ['action'] = 'add';
 		
-		$this->load->view ( 'menu', $data );
+		$this->load->view ( 'menu_register', $data );
 		$this->load->view ( 'kaosheng_edit', $list );
 	}
 	// =============== 考生 注册 register ========================
