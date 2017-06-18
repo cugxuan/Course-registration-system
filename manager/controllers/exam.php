@@ -21,7 +21,7 @@ class Exam extends CI_Controller {
 	/**
 	 * 考试列表 start
 	 */
-	// =============== 考生 列表 ========================
+	// =============== 考试 列表 ========================
 	public function exam_list($page = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		if ($this->session->userdata ( 'statement' ) == '') {
@@ -46,25 +46,25 @@ class Exam extends CI_Controller {
 		$offset = ($page - 1) * $num;
 		
 		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'kaosheng', $num, $offset );
+		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'exam', $num, $offset );
 		
 		$data ['title'] = '考试列表 - ';
 		$data ['curbig'] = 2; // current
 		$data ['cursmal'] = 22; // class="current"
 		
 		$list ['info'] = '考试';
-		$list ['total_rows'] = $this->db->count_all ( 'kaosheng' );
+		$list ['total_rows'] = $this->db->count_all ( 'exam' );
 		
 		$config ['page_url'] = 'kaosheng/kaosheng_list';
 		$config ['page_size'] = $num;
-		$config ['rows_num'] = $this->db->count_all ( 'kaosheng' );
+		$config ['rows_num'] = $this->db->count_all ( 'exam' );
 		$config ['page_num'] = $page;
 		$this->load->library ( 'Custom_pagination' );
 		$this->custom_pagination->init ( $config );
 		$list ['fenye'] = $this->custom_pagination->create_links ();
 		
 		//$this->load->view ( 'menu', $data );
-		$this->load->view ( 'menu_kaosheng', $data );
+		$this->load->view ( 'menu', $data );
 		$this->load->view ( 'exam_list', $list );
 	}
 	

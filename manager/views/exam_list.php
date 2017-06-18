@@ -15,8 +15,7 @@
           <table>
             <thead>
               <tr>
-                <th width="5%">id</th>
-                <th width="15%">考试编号</th>
+                <th width="20%">考试编号</th>
                 <th width="10%">科目</th>
                 <th width="15%">起始时间</th>
                 <th width="15%">终止时间</th>
@@ -30,22 +29,21 @@
             <tbody>
 <?php foreach ($list as $item){?>
 		
-<tr>                
+<tr>
 <td><?php echo $item['id'];?></td>
-<td><a href="<?php echo site_url("kaosheng/kaosheng_edit/".$item['id']);?>" title="<?php echo $item['kaosheng_no'];?>"><?php echo $item['kaosheng_no'];?></a></td>
-<td><?php echo $item['name'];?></td>
-<td><?php if($item['sex']=='1'){echo '男';}elseif($item['sex']=='0'){echo '<font color=red>女</font>';}else{echo $item['sex'];}?></td>
-<td><?php echo $item['sfz'];?></td>
-<td><?php echo $item['address'];?></td>
-<td><?php echo $item['tel'];?></td>
-<td><?php echo $item['tel'];?></td>
+<td><a href="<?php echo site_url("exam/exam_edit/".$item['id']);?>" title="<?php echo $item['subject'];?>"><?php echo $item['subject'];?></a></td>
+<td><?php echo $item['start_time'];?></td>
+<td><?php echo $item['deadline'];?></td>
+<td><?php echo $item['location'];?></td>
+<td><?php echo $item['capacity'];?></td>
+<td><a href="<?php echo site_url("exam/exam_kaosheng_list/".$item['id']);?>" title="<?php echo $item['number'];?>"><?php echo $item['number'];?></a></td>
 <td>
-<a href="<?php echo site_url("kaosheng/kaosheng_edit/".$item['id']);?>" title="编辑" target="_blank">编辑</a>&nbsp;&nbsp; 
-<a href="<?php echo site_url("kaosheng/kaosheng_fp/".$item['id'].'/'.substr($item['zuowei_all_num'],0,2));?>" title="重新分配" target="_blank">重新分配</a>&nbsp;&nbsp; 
-<a href="<?php echo site_url("kaosheng/kaosheng_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; 
+<a href="<?php echo site_url("exam/exam_edit/".$item['id']);?>" title="编辑" target="_blank">编辑</a>&nbsp;&nbsp; 
+<!--<a href="<?php echo site_url("kaosheng/kaosheng_fp/".$item['id'].'/'.substr($item['zuowei_all_num'],0,2));?>" title="重新分配" target="_blank">重新分配</a>&nbsp;&nbsp; 
+<a href="<?php echo site_url("exam/exam_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; -->
 
 <?php
-		if($this->session->userdata('manage_role')=='10'){
+		if($this->session->userdata('statement')!=''){
 		?>&nbsp;&nbsp; <a href="<?php echo site_url("kaosheng/kaosheng_del/".$item['id']);?>" title="删除" onclick="javascript:return confirm('确认删除？');"><img src="<?php echo base_url();?>public/images/admin/images/icons/cross.png" alt="删除" /></a>
 		<?php
 		 }

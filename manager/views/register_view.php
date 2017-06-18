@@ -3,7 +3,7 @@
     <div class="content-box">
       <!-- Start Content Box -->
       <div class="content-box-header">
-        <h3>欢迎来到考生管理界面</h3>
+        <h3>欢迎来到注册界面</h3>
 		
 		<div align="right" style="padding-top:15px; padding-right:20px;"><h5></h5>
 		</div>
@@ -33,9 +33,10 @@ case "2":
 ?>
 <br />
     <br /><br />
-			<?php  if($p==1){echo '<font color=red>';}?>1.最近考试安排如下<?php  if($p==1){echo '</font>';}?><br /><br />
+			<?php  if($p==1){echo '<font color=red>';}?>1.请点击左侧的添加考生来填写并提交<?php  if($p==1){echo '</font>';}?><br /><br />
 
-			<?php  if($p==10){echo '<font color=red>';}?>英语四六级考试：2017年6月17日<?php  if($p==10){echo '</font>';}?><br /><br /><br />
+			<?php  if($p==10){echo '<font color=red>';}?>2.最近考试安排如下<?php  if($p==10){echo '</font>';}?><br /><br /><br />
+			<?php  if($p==10){echo '<font color=red>';}?>  英语四六级考试：2017年6月17日<?php  if($p==10){echo '</font>';}?><br /><br /><br />
 			
 			<h5 style="color:#FF0000">提示：如果您遇到了问题，请联系网站管理员-Xuan(QQ:179562600)！</h5>
 			</td>

@@ -33,7 +33,6 @@
 <tr>                
 <td><?php echo $item['id'];?></td>
 <td><a href="<?php echo site_url("kaosheng/kaosheng_edit/".$item['id']);?>" title="<?php echo $item['name'];?>"><?php echo $item['name'];?></a></td>
-<!-- <td><?php echo $item['name'];?></td> -->
 <td><?php echo $item['credit_card'];?></td>
 <td><?php if($item['sex']=='1'){echo '男';}elseif($item['sex']=='0'){echo '<font color=red>女</font>';}else{echo $item['sex'];}?></td>
 <td><?php echo $item['phone'];?></td>

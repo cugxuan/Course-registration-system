@@ -206,7 +206,7 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 编辑 ========================
 	public function kaosheng_edit($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'statement' ) == '') {
+		if ($this->session->userdata ( 'statement' ) != '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';

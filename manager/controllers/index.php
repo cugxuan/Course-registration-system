@@ -80,6 +80,8 @@ class Index extends CI_Controller {
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
+		
+		//加载模型，用来调用数据库
 		$this->load->model ( 'Data_model' );
 		if(strlen($manage_name)==4){//此用户为管理员
 			$data ['query'] = $this->Data_model->get_exists_data ( array (
@@ -95,11 +97,13 @@ class Index extends CI_Controller {
  				echo 'window.location.href="' . $status ['where'] . '";</script>';
 				exit ();
 			}
-			
+			//若找到了该用户名和密码
 			$data = $this->Data_model->get_login ( array (
 					'id' => $manage_name,
 					'password' => md5 ( md5 ( $manage_password ) ),
 			), 'admin_core' );
+			
+			//确定session的类别
 			$this->session->set_userdata ( 'id', $data ['id'] );
 			$this->session->set_userdata ( 'name', $data ['name'] );
 			$this->session->set_userdata ( 'statement', $data ['statement'] );
@@ -109,6 +113,8 @@ class Index extends CI_Controller {
 					'last_login_time' => time ()
 			), 'admin' );*/
 			
+			//跳转到管理员控制器
+			redirect ( site_url ( 'index/manage' ) );
 		}
 		else if(strlen($manage_name)==11){//此用户为考生
 			$data ['query'] = $this->Data_model->get_exists_data ( array (
@@ -129,6 +135,8 @@ class Index extends CI_Controller {
 					'id' => $manage_name,
 					'password' => md5 ( md5 ( $manage_password ) ),
 			), 'student' );
+			
+			//考生没有statement
 			$this->session->set_userdata ( 'id', $data ['id'] );
 			$this->session->set_userdata ( 'name', $data ['name'] );
 			/*$this->Data_model->update_data ( $data ['id'], array (
@@ -137,6 +145,8 @@ class Index extends CI_Controller {
 					'last_login_time' => time ()
 			), 'admin' );*/
 			
+			//跳转到考生控制器
+			redirect ( site_url ( 'index/kaosheng' ) );
 		}
 		else{
 			$status ['msg'] = '用户名输入错误，登陆失败！';
@@ -150,7 +160,6 @@ class Index extends CI_Controller {
 		$this->session->set_userdata ( 'manage_truename', $data ['manage_truename'] );
 		$this->session->set_userdata ( 'manage_role', $data ['manage_role'] );*/
 		
-		redirect ( site_url ( 'index/manage' ) );
 	}
 	
 	
@@ -195,9 +204,20 @@ class Index extends CI_Controller {
 	    $list ['statement'] = $this->session->userdata ( 'statement' );
 	    
 	    $this->load->view ('menu_register',$data);
-	    $this->load->view ( 'kaosheng_view', $list );
+	    $this->load->view ( 'register_view', $list );
 	}
 	
+	public function kaosheng(){
+	     $data ['title'] = '考生信息 - ';
+	     $data ['curbig'] = 1; // current
+	     $data ['cursmal'] = 0; // class="current"
+	    
+	     $list ['id'] = $this->session->userdata ( 'id' );
+	     $list ['name'] = $this->session->userdata ( 'name' );
+	    
+	     $this->load->view ( 'menu_kaosheng', $data );
+	     $this->load->view ( 'kaosheng_view', $list );
+	}
 	public function logout() {
 		$this->session->unset_userdata ( 'id' );
 		$this->session->unset_userdata ( 'name' );

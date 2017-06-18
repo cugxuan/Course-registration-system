@@ -79,7 +79,7 @@
 		 	
 		
 		<?php
-		if($this->session->userdata('manage_role')=='0'){
+		if($this->session->userdata('manage_role')=='0'&&$this->session->userdata('statement')=='0'){
 		?>
         <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==5){echo '  current';}?>"> 管理员管理 </a>
           <ul>

@@ -45,19 +45,19 @@
       <!-- Logo (221px wide) -->
       <img id="logo" src="<?php echo base_url();?>public/images/admin/images/kaosheng.png" alt="Simpla Admin logo" />
      
-      <div id="profile-links"> 你好,  简同学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      <div id="profile-links"> 你好, <?php echo $this->session->userdata('name');?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
         <br />
         <a href="<?php echo site_url('index/manage');?>" title="后台首页">考生信息</a> |  &nbsp;<a href="<?php echo site_url('index/logout');?>" title="退出登录">退出登录</a> </div>
       <ul id="main-nav">
         <!--  Menu  Start -->
         <?php
-		if($this->session->userdata('manage_role')=='1' || $this->session->userdata('manage_role')=='10'){
-		?>
+// 		if($this->session->userdata('manage_role')=='1' || $this->session->userdata('manage_role')=='10'){
+// 		?>
 	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==1){echo '  current';}?>"> 考生管理 </a>
           <ul>
-         	<li><a href="<?php echo site_url("index/register");?>" <?php if($cursmal==11){echo ' class="current"';}?>>考生须知</a></li>
+         	<li><a href="<?php echo site_url("index/kaosheng");?>" <?php if($cursmal==11){echo ' class="current"';}?>>考生须知</a></li>
             <li><a href="<?php echo site_url("kaosheng/kaosheng_info");?>" <?php if($cursmal==12){echo ' class="current"';}?>>考生信息</a></li>
-            <li><a href="<?php echo site_url("kaosheng/kaosheng_edit");?>" <?php if($cursmal==12){echo ' class="current"';}?>>修改信息</a></li>
+            <li><a href="<?php echo site_url("kaosheng/kaosheng_edit");?>" <?php if($cursmal==13){echo ' class="current"';}?>>修改信息</a></li>
           </ul>
         </li>
 		
@@ -71,8 +71,8 @@
         </li>
 		
 		<?php
-		}
-		?>
+// 		}
+// 		?>
 		  	
       
       </ul>

@@ -37,7 +37,7 @@ class Admin extends CI_Controller {
 		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			echo 'window.location.href="' . site_url ( 'index/manage' ) . '";</script>';
 			exit ();
 		}
 		
@@ -88,7 +88,7 @@ class Admin extends CI_Controller {
 		if ($this->session->userdata ( 'manage_role' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			echo 'window.location.href="' . site_url ( 'index/manage' ) . '";</script>';
 			exit ();
 		}
 		
@@ -110,13 +110,13 @@ class Admin extends CI_Controller {
 		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			echo 'window.location.href="' . site_url ( 'index/manage' ) . '";</script>';
 			exit ();
 		}
 		if ($this->session->userdata ( 'statement' ) != '0') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("您没有此操作权限 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			echo 'window.location.href="' . site_url ( 'index/manage' ) . '";</script>';
 			exit ();
 		}
 		
