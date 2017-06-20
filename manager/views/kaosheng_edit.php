@@ -45,36 +45,18 @@
             ?>
         <tr>
           <td>考生号 : </td>
-          <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['id'])){echo $list['id'];}
-			} ?>" <?php if($action=='add'){}else{
-			if(isset($list['id'])){echo 'disabled="disabled" ';}
-			}?> />(即学号，如： 20151003756)</td>
+          <td><?php echo $list['id'];?></td>
 		
-          <td>密码 : </td>
-          <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['password'])){echo '密码不可编辑';}
-			} ?>" <?php if($action=='add'){}else{
-			if(isset($list['id'])){echo 'disabled="disabled" ';}
-			}?>/></td>
         </tr>
 
         <?php }  else{
             ?>
         <tr>
           <td>考生号 : </td>
-          <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['id'])){echo $list['id'];}
-			} ?>" <?php if($action=='add'){}else{
-			if(isset($list['id'])){echo 'disabled="disabled" ';}
-			}?> />(即学号，如： 20151003756)</td>
+          <td><input class="text-input" type="text" id="id" name="id" size="40" />(即学号，如： 20151003756)</td>
 		
           <td>密码 : </td>
-          <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
-			if(isset($list['password'])){echo '密码不可编辑';}
-			} ?>" <?php if($action=='add'){}else{
-			if(isset($list['id'])){echo 'disabled="disabled" ';}
-			}?>/></td>
+          <td><input class="text-input" type="password" id="password" name="password" size="40" /></td>
         </tr>
 		<?php }?>
 		
