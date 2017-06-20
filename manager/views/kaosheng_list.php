@@ -15,15 +15,13 @@
           <table>
             <thead>
               <tr>
-                
-                <!-- <th width="5%">id</th> -->
                 <th width="10%">考生号</th>
 				<th width="10%">姓名</th>
-				<th width="15%">身份证号</th>
+				<th width="20%">身份证号</th>
 				<th width="5%">性别</th>
 				<th width="15%">联系电话</th>
-				<th width="15%">所在地</th>
-				<th width="25%">操作</th>
+				<th width="10%">所在地</th>
+				<th width="15%">操作</th>
               </tr>
             </thead>
             
@@ -86,8 +84,6 @@
    
   </div>
  
-  
-  
 </div>
 </body>
 </html>

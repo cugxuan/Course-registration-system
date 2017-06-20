@@ -46,7 +46,10 @@
         <tr>
           <td>考生号 : </td>
           <td><?php echo $list['id'];?></td>
-		
+		   
+		  <td>密码 : </td>
+          <td><input class="text-input" type="password" id="password" name="password" size="40" /></td>
+        
         </tr>
 
         <?php }  else{

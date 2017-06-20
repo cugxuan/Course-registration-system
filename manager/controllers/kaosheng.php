@@ -301,7 +301,7 @@ class Kaosheng extends CI_Controller {
 	// =============== 准考证 打印   预览 ========================
 	public function kaosheng_print_preview($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -530,7 +530,7 @@ class Kaosheng extends CI_Controller {
 	
 	
 	public function exportall() {
-		if ($this->session->userdata ( 'manage_role' ) == '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
