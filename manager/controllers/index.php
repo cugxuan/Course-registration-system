@@ -33,13 +33,13 @@ class Index extends CI_Controller {
 		session_start ();
 		// 生成验证码图片
 		Header ( "Content-type: image/PNG" );
-		$im = imagecreate ( 50, 18 );
+		$im = imagecreate ( 42, 18 );
 		$back = ImageColorAllocate ( $im, 245, 245, 245 );
 		imagefill ( $im, 0, 0, $back ); // 背景
 	
 		srand ( ( double ) microtime () * 1000000 );
 		// 生成4位数字
-		for($i = 0; $i < 5; $i ++) {
+		for($i = 0; $i < 4; $i ++) {
 			$font = ImageColorAllocate ( $im, rand ( 100, 255 ), rand ( 0, 100 ), rand ( 100, 255 ) );
 			$authnum = rand ( 1, 9 );
 			$vcodes .= $authnum;
@@ -107,11 +107,6 @@ class Index extends CI_Controller {
 			$this->session->set_userdata ( 'id', $data ['id'] );
 			$this->session->set_userdata ( 'name', $data ['name'] );
 			$this->session->set_userdata ( 'statement', $data ['statement'] );
-			/*$this->Data_model->update_data ( $data ['id'], array (
-					'login_count' => $data ['login_count'] + 1,
-					'last_ip' => $this->input->ip_address (),
-					'last_login_time' => time ()
-			), 'admin' );*/
 			
 			//跳转到管理员控制器
 			redirect ( site_url ( 'index/manage' ) );
@@ -136,14 +131,10 @@ class Index extends CI_Controller {
 					'password' => md5 ( md5 ( $manage_password ) ),
 			), 'student' );
 			
-			//考生没有statement
+            //考生的statement设置为2
 			$this->session->set_userdata ( 'id', $data ['id'] );
 			$this->session->set_userdata ( 'name', $data ['name'] );
-			/*$this->Data_model->update_data ( $data ['id'], array (
-					'login_count' => $data ['login_count'] + 1,
-					'last_ip' => $this->input->ip_address (),
-					'last_login_time' => time ()
-			), 'admin' );*/
+			$this->session->set_userdata ( 'statement', 2 );
 			
 			//跳转到考生控制器
 			redirect ( site_url ( 'index/kaosheng' ) );
@@ -155,16 +146,11 @@ class Index extends CI_Controller {
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
-		
-		/*$this->session->set_userdata ( 'manage_name', $data ['manage_name'] );
-		$this->session->set_userdata ( 'manage_truename', $data ['manage_truename'] );
-		$this->session->set_userdata ( 'manage_role', $data ['manage_role'] );*/
-		
 	}
 	
 	
 	public function manage() {
-		if ($this->session->userdata ( 'statement' ) == '') {
+		if ($this->session->userdata ( 'statement' )!=0&&$this->session->userdata ( 'statement' )!=1) {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
@@ -178,20 +164,10 @@ class Index extends CI_Controller {
  		$list ['id'] = $this->session->userdata ( 'id' );
  		$list ['name'] = $this->session->userdata ( 'name' );
  		$list ['statement'] = $this->session->userdata ( 'statement' );
-		
+ 		
  		$this->load->view ( 'menu', $data );
- 		$this->load->view ( 'manage', $list );
+ 		$this->load->view ( 'manage', $list);
 		
-		/*$data ['title'] = '考生信息 - ';
-		$data ['curbig'] = 1; // current
-		$data ['cursmal'] = 0; // class="current"
-		
-		$list ['manage_name'] = $this->session->userdata ( 'manage_name' );
-		$list ['manage_truename'] = $this->session->userdata ( 'manage_truename' );
-		$list ['manage_role'] = $this->session->userdata ( 'manage_role' );
-		
-		$this->load->view ( 'menu_kaosheng', $data );
-		$this->load->view ( 'kaosheng_view', $list );*/
 	}
 	
 	public function register(){
@@ -214,7 +190,9 @@ class Index extends CI_Controller {
 	    
 	     $list ['id'] = $this->session->userdata ( 'id' );
 	     $list ['name'] = $this->session->userdata ( 'name' );
+	     $list ['statement'] = $this->session->userdata ( 'statement' );
 	    
+	     
 	     $this->load->view ( 'menu_kaosheng', $data );
 	     $this->load->view ( 'kaosheng_view', $list );
 	}

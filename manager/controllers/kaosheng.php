@@ -206,14 +206,13 @@ class Kaosheng extends CI_Controller {
 	// =============== 考生 编辑 ========================
 	public function kaosheng_edit($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		if ($this->session->userdata ( 'statement' ) != '') {
+		if ($this->session->userdata ( 'statement' ) == '') {
 			header ( "Content-Type:text/html;charset=utf-8" );
 			echo '<script>alert("请登录 ！");';
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-		
-		
+
 		$id = trim(htmlspecialchars ( $id ));
 		
 		$this->load->model ( 'Data_model' );
@@ -235,15 +234,7 @@ class Kaosheng extends CI_Controller {
 	
 	// =============== 考生 编辑 do ========================
 	public function kaosheng_editdo($id = 1) {
-		
-		if ($this->session->userdata ( 'statement' ) == '') {
-			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("请登录 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
-			exit ();
-		}
-
-		
+		//注册考生不需要身份
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		$id = intval(trim(htmlspecialchars ( $id )));
 		
@@ -286,42 +277,6 @@ class Kaosheng extends CI_Controller {
 		);
 		
 		$KSData = $this->Data_model->get_adata ( $id, 'student' );
-		
-		//如果用户修改了学生的 大区num 则重新生成报名号
-		/*if(($daqu_num != $oldDaQuNum)){			
-			
-			$year=date('Y',time()); //年  如：2013
-			$getBMList=$this->Data_model->get_wdata_bypage(array('daqu_num'=>$daqu_num),'id desc','kaosheng',0,1);
-			
-			$daquNumStr=substr('00'.$daqu_num, -2);//默认大区num
-			$nowQuKSNumStr='001';  //默认大区下编号num
-			
-			if($getBMList){
-				$maxQuKSNum=$getBMList[0]['kaosheng_num'];
-				$nowQuKSNum=$maxQuKSNum+1;
-				$nowQuKSNumStr=substr('00'.$nowQuKSNum, -3);
-			}
-			$bmid=$year.$daquNumStr.$nowQuKSNumStr;  //报名号
-			
-			$post = array (
-					'daqu_num' => $daquNumStr,
-					'kaosheng_num' => $nowQuKSNumStr,
-					'kaosheng_no' => $bmid,
-					//	'zuowei_id' => $zuowei_id,
-					//	'zuowei_all_num' => $zuowei_all_num,
-					'school_name' => $school_name,
-					'name' => $name,
-					'sex' => $sex,
-					'birthday' => $birthday,				
-					'sfz' => $sfz,
-					'address' => $address,
-					'fmqo_name' => $fmqo_name,
-					'tel' => $tel,
-					'photo' => $photo,
-					'create_time' => $time,
-					'update_time' => $time
-			);
-		}*/
 		$post = array (
 				'name' => $name,
 				'credit_card' => $credit_card,

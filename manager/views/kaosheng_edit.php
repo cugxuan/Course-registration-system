@@ -39,8 +39,10 @@
 </center></h2>
 <form action="<?php if($action=='add'){echo site_url("kaosheng/kaosheng_adddo/");}else{echo site_url("kaosheng/kaosheng_editdo/".$list['id']);} ?>" method="post" id="form" class="form">
 
- <fieldset>
+<fieldset>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <?php if($action!=add){
+            ?>
         <tr>
           <td>考生号 : </td>
           <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
@@ -48,8 +50,7 @@
 			} ?>" <?php if($action=='add'){}else{
 			if(isset($list['id'])){echo 'disabled="disabled" ';}
 			}?> />(即学号，如： 20151003756)</td>
-			</tr>
-			
+		
           <td>密码 : </td>
           <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['password'])){echo '密码不可编辑';}
@@ -57,6 +58,26 @@
 			if(isset($list['id'])){echo 'disabled="disabled" ';}
 			}?>/></td>
         </tr>
+
+        <?php }  else{
+            ?>
+        <tr>
+          <td>考生号 : </td>
+          <td><input class="text-input" type="text" id="id" name="id" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['id'])){echo $list['id'];}
+			} ?>" <?php if($action=='add'){}else{
+			if(isset($list['id'])){echo 'disabled="disabled" ';}
+			}?> />(即学号，如： 20151003756)</td>
+		
+          <td>密码 : </td>
+          <td><input class="text-input" type="text" id="password" name="password" size="40" value="<?php if($action=='add'){}else{
+			if(isset($list['password'])){echo '密码不可编辑';}
+			} ?>" <?php if($action=='add'){}else{
+			if(isset($list['id'])){echo 'disabled="disabled" ';}
+			}?>/></td>
+        </tr>
+		<?php }?>
+		
 		<tr>
           <td>姓名 : </td>
           <td><input class="text-input" type="text" id="name" name="name" size="40" value="<?php if($action=='add'){}else{

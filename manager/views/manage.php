@@ -16,7 +16,7 @@
           <table>
             <tbody>
 <tr>
-<td>尊敬的 <span style="font-size:16px; color:#FF0000; font-weight:500;"><?php echo $name;?></span>
+<td>尊敬的<?php echo $list['where'];?> <span style="font-size:16px; color:#FF0000; font-weight:500;"><?php echo $name;?></span>
 
 <?php
 $p=-1;
