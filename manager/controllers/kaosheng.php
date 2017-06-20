@@ -17,10 +17,34 @@ class Kaosheng extends CI_Controller {
 		
 		redirect ( site_url ( 'kaosheng/kaosheng_add' ) );
 	}
+	// =============== 考生 信息 ========================
+	public function kaosheng_info() {
+		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+		if ($this->session->userdata ( 'statement' ) == '') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("请登录 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
+
+		$id = $this->session->userdata('id');
+		
+		$this->load->model ( 'Data_model' );
+		$list ['list'] = $this->Data_model->get_adata ( $id, 'student' );
+		//$list['daqu']=$this->Data_model->get_data('id asc','daqu');
+		//$list['school']=$this->Data_model->get_data('id asc','school');
+		
+		$data ['title'] = '考生信息 - ';
+		$data ['curbig'] = 1; // current
+		$data ['cursmal'] = 12; // class="current"
+		
+		$list ['id']=$id;
+		$list ['info'] = '考生信息';
+		
+		$this->load->view ( 'menu_kaosheng', $data );
+		$this->load->view ( 'kaosheng_info', $list );
+	}
 	
-	/**
-	 * 考生列表 start
-	 */
 	// =============== 考生 列表 ========================
 	public function kaosheng_list($page = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
@@ -213,7 +237,10 @@ class Kaosheng extends CI_Controller {
 			exit ();
 		}
 
-		$id = trim(htmlspecialchars ( $id ));
+		if($this->session->userdata('statement')==2)
+		    $id=$this->session->userdata('id');
+		else
+    		$id = trim(htmlspecialchars ( $id ));
 		
 		$this->load->model ( 'Data_model' );
 		$list ['list'] = $this->Data_model->get_adata ( $id, 'student' );
@@ -222,13 +249,19 @@ class Kaosheng extends CI_Controller {
 		
 		$data ['title'] = '考生编辑 - ';
 		$data ['curbig'] = 1; // current
-		$data ['cursmal'] = 12; // class="current"
+		if($this->session->userdata('statement')==2)//考生的编辑是第三栏
+		    $data ['cursmal'] = 13; // class="current"
+	    else
+	        $data ['cursmal'] = 12; // class="current"
 		
 		$list ['id']=$id;
 		$list ['info'] = '考生';
 		$list ['action'] = 'edit';
 		
-		$this->load->view ( 'menu', $data );
+		if($this->session->userdata('statement')==2)
+		    $this->load->view ( 'menu_kaosheng', $data );
+		else
+	       	$this->load->view ( 'menu', $data );
 		$this->load->view ( 'kaosheng_edit', $list );
 	}
 	
@@ -298,6 +331,12 @@ class Kaosheng extends CI_Controller {
 		$status ['msg'] = '编辑考生成功！';
 		$this->load->view ( 'status', $status );
 	}
+	
+
+	
+	
+	
+	
 	// =============== 准考证 打印   预览 ========================
 	public function kaosheng_print_preview($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址

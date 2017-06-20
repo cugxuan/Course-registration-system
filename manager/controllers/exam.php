@@ -344,6 +344,58 @@ class Exam extends CI_Controller {
 		$status ['msg'] = '编辑考生成功！';
 		$this->load->view ( 'status', $status );
 	}
+	
+	
+	// =============== 报名 考试 ========================
+	public function exam_sign() {
+	    $status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+	    if ($this->session->userdata ( 'statement' ) == '') {
+	        header ( "Content-Type:text/html;charset=utf-8" );
+	        echo '<script>alert("请登录 ！");';
+	        echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+	        exit ();
+	    }
+	
+	    $id = $this->session->userdata('id');
+	
+	    $this->load->model ( 'Data_model' );
+	    $list ['list'] = $this->Data_model->get_adata ( $id, 'student' );
+	    //$list['daqu']=$this->Data_model->get_data('id asc','daqu');
+	    //$list['school']=$this->Data_model->get_data('id asc','school');
+	
+	    $data ['title'] = '考生信息 - ';
+	    $data ['curbig'] = 1; // current
+	    $data ['cursmal'] = 12; // class="current"
+	
+	    $list ['id']=$id;
+	    $list ['info'] = '考生信息';
+	
+	    $this->load->view ( 'menu_kaosheng', $data );
+	    $this->load->view ( 'exam_sign', $list );
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// =============== 准考证 打印   预览 ========================
 	public function kaosheng_print_preview($id = 1) {
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址

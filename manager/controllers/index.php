@@ -196,6 +196,7 @@ class Index extends CI_Controller {
 	     $this->load->view ( 'menu_kaosheng', $data );
 	     $this->load->view ( 'kaosheng_view', $list );
 	}
+	
 	public function logout() {
 		$this->session->unset_userdata ( 'id' );
 		$this->session->unset_userdata ( 'name' );
