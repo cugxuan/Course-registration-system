@@ -49,12 +49,13 @@
 <a href="<?php echo site_url("exam/exam_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; -->
 
 <?php
-		if($this->session->userdata('statement')!=''){
+		if($this->session->userdata('statement')==2){
 		?><a href="<?php echo site_url("exam/exam_withdrew/".$item['id']);?>" title="删除"
-		 onclick="javascript:return confirm('确认删除？');">退选</a>
-		<?php
-		 }
-		 ?>
+		 onclick="javascript:return confirm('确认退选？');">退选</a>
+		<?php }else{?>
+		 <a href="<?php echo site_url("exam/exam_del/".$item['id']);?>" title="删除"
+		 onclick="javascript:return confirm('确认删除？');">删除考试</a>
+		 <?php }?>
 </td>
 </tr>
 <?php }?>

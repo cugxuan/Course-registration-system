@@ -99,9 +99,7 @@ class Kaosheng extends CI_Controller {
 // 			echo '<script>alert("请登录 ！");';
 // 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 // 			exit ();
-// 		}
-
-		
+// 		}		
 		$this->load->model ( 'Data_model' );
 		//$list['daqu']=$this->Data_model->get_data('id asc','daqu');
 		//$list['school']=$this->Data_model->get_data('id asc','school');
@@ -197,8 +195,6 @@ class Kaosheng extends CI_Controller {
 				'id' => $id,
 				'password' => md5 ( md5 ( $password ) ),
 				'name' => $name,
-			//	'zuowei_id' => $zuowei_id,
-			//	'zuowei_all_num' => $zuowei_all_num,
 				'credit_card' => $credit_card,
 				'sex' => $sex_,
 				'phone'=>$phone,
@@ -207,7 +203,7 @@ class Kaosheng extends CI_Controller {
 		$this->Data_model->insert_data ( $post, 'student' );		
 		$this->db->trans_complete();
 		
-		$status ['msg'] = '报名考试成功！';
+		$status ['msg'] = '添加考生成功！';
 		//$status ['where'] = site_url("kaosheng//");
 		
 		$this->load->view ( 'status', $status );
@@ -534,9 +530,60 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		$this->load->model ( 'Data_model' );
+		
+		$que=$this->Data_model->get_alldata ( $id, 'student_exam','exam' );
+		$re=array();
+		$rea=array();
+		foreach($que as $resp){
+			$rea=$resp['id'];
+			$re[]=$resp['number']--;
+		}
+		$data['query3']=$this->Data_model->update_data ( $rea,array('number'=>re), 'exam' );
 		$data ['query'] = $this->Data_model->delete_data ( $id, 'student' );
+		$data ['query2'] = $this->Data_model->delete_data( $id, 'student_exam' );
+		
 		$status ['msg'] = '删除成功！';
 		
+		$this->load->view ( 'status', $status );
+	}
+	
+	
+	// =============== 删除 某个考生选的考试 ========================
+	public function kaosheng_del_line($str) {
+		if ($this->session->userdata ( 'statement' ) == '') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("请登录 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
+		if ($this->session->userdata ( 'statement' ) != '0') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("您没有此操作权限 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
+
+		$id=substr($str, 0, 11);
+		$exam_id=substr($str, 11);
+		
+		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+	
+		if ($id == '') {
+			$status ['msg'] = 'id不能为空！';
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("删除的id不能为空！");';
+			echo 'window.location.href="' . $status ['where'] . '";</script>';
+			exit ();
+		}
+	
+		$this->load->model ( 'Data_model' );
+		$que=$this->Data_model->get_adata ( $exam_id, 'exam');
+		$re=$que['number'];
+		$re--;
+		$data['query3']=$this->Data_model->update_data ( $exam_id,array('number'=>$re), 'exam' );
+		$data ['query']=$this->Data_model->delete_data_line($id,$exam_id,'student_exam');
+
+		$status ['msg'] = '删除成功！';
 		$this->load->view ( 'status', $status );
 	}
 	

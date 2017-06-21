@@ -54,7 +54,7 @@ class Data_model extends CI_Model {
 	function get_adata($id,$table)
 	{
 		$query=$this->db->get_where($table,array('id'=>$id));		
-		$row = $query->row_array();		
+		$row = $query->row_array();
 		return  $row;	  //row_array(); //
 	}
 	
@@ -86,6 +86,23 @@ class Data_model extends CI_Model {
 	}
 	
 	
+	function get_alldata2($id,$table1,$table2)
+	{//获取某种考试的所有报名考生s
+		$query2 = $this->db->get_where($table1, array('exam_id'=>$id)); //$some  类似数组 array('city_name' => $city_name)
+		$num=$query2->num_rows(); //返回条数，
+		if($num>0){
+			$query1=$this->db->where('exam_id',$id)->select('id')->get($table1)->result_array();
+				
+			$re=array();
+			foreach($query1 as $resp){
+				$re[]=$resp['id'];
+			}
+			$query=$this->db->where_in('id',$re)->get($table2)->result_array();
+			return $query;
+		}else
+			return ' ';
+	}
+	
       //查询数据库中是否存在某个数据,$some为表中匹配字段,$table为查询表
 	function get_exists_data($some,$table)
     {
@@ -110,7 +127,7 @@ class Data_model extends CI_Model {
 	
                                   $this->db->insert($table, $post);
 				
-		$id = $this->db->insert_id(); // 返回插入数据的id			
+		$id = $this->db->insert_id(); // 返回插入数据的id
 		return $id;	
 
     }
@@ -133,6 +150,11 @@ class Data_model extends CI_Model {
                    return $query;
     }
 
+    function delete_data2($id,$table)//专用于删除考试
+    {
+    	$query=$this->db->delete($table, array('exam_id' => $id));
+    	return $query;
+    }
     function delete_data_line($id,$exam_id,$table)
     {
     	$query=$this->db->delete($table, array('id' => $id,'exam_id'=>$exam_id));

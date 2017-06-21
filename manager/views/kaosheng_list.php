@@ -3,9 +3,16 @@
     <div class="content-box">
       <!-- Start Content Box -->
       <div class="content-box-header">
-        <h3><?php echo $info;?>列表</h3>
+        <h3><?php if($info=='已选考生')echo $exam_name.":".$info;
+        else echo $info;?>列表</h3>
 		
-		<div align="right" style="padding-top:15px; padding-right:20px;"><h5><a href="<?php echo site_url("kaosheng/kaosheng_add");?>" class="default-tab" target="_blank">添加<?php echo $info;?></a></h5></div>
+		<div align="right" style="padding-top:15px; padding-right:20px;">
+		<?php if($info!='已选考生'){?>
+		<h5><a href="<?php echo site_url("kaosheng/kaosheng_add");?>"
+		class="default-tab" target="_blank">添加<?php echo $info;?></a></h5>
+		<?php }else{?>
+		<h5><p class="default-tab"><?php echo  "";?></p></h5><?php }?>
+		</div>
         <div class="clear"></div>
       </div>
      
@@ -40,12 +47,17 @@
 <!--<a href="<?php echo site_url("kaosheng/kaosheng_fp/".$item['id'].'/'.substr($item['zuowei_all_num'],0,2));?>" title="重新分配" target="_blank">重新分配</a>&nbsp;&nbsp; 
 <a href="<?php echo site_url("kaosheng/kaosheng_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; -->
 
-<?php
-		if($this->session->userdata('statement')=='0'){
-		?>&nbsp;&nbsp; <a href="<?php echo site_url("kaosheng/kaosheng_del/".$item['id']);?>" title="删除" onclick="javascript:return confirm('确认删除？');"><img src="<?php echo base_url();?>public/images/admin/images/icons/cross.png" alt="删除" /></a>
-		<?php
-		 }
-		 ?>
+		<?php if($this->session->userdata('statement')=='0'&& $info=='已选考生'){?>
+<!-- 		删除该考生选择的考试 -->
+		&nbsp;&nbsp; <a href="<?php echo site_url("kaosheng/kaosheng_del_line/".$item['id'].$id);?>" 
+		title="删除" onclick="javascript:return confirm('确认删除？');">
+		<img src="<?php echo base_url();?>public/images/admin/images/icons/cross.png" alt="删除" /></a>
+		<?php }else{?>
+<!-- 		删除考生和所有已选择的考试 -->
+		&nbsp;&nbsp; <a href="<?php echo site_url("kaosheng/kaosheng_del/".$item['id']);?>" 
+		title="删除" onclick="javascript:return confirm('确认删除？');">
+		<img src="<?php echo base_url();?>public/images/admin/images/icons/cross.png" alt="删除" /></a>
+		<?php }?>
 </td>
 </tr>
 <?php }?>
