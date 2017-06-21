@@ -64,7 +64,7 @@
 	    <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==2){echo '  current';}?>"> 考试管理 </a>
           <ul>
          <li><a href="<?php echo site_url("exam/exam_sign");?>" <?php if($cursmal==21){echo ' class="current"';}?>>报名考试</a></li>
-            <li><a href="<?php echo site_url("exam/exam_list");?>" <?php if($cursmal==22){echo ' class="current"';}?>>考试列表</a></li>			
+            <li><a href="<?php echo site_url("exam/exam_list");?>" <?php if($cursmal==22){echo ' class="current"';}?>>考试列表</a></li>
 			 <!--<li><a href="<?php echo site_url("zuowei/zuowei_list");?>" <?php if($cursmal==23){echo ' class="current"';}?>>座位管理</a></li>-->       
 			
           </ul>

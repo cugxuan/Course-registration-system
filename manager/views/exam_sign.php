@@ -1,11 +1,12 @@
-  <div id="main-content">
+ <div id="main-content">
  
     <div class="content-box">
       <!-- Start Content Box -->
       <div class="content-box-header">
         <h3><?php echo $info;?>列表</h3>
 		
-		<div align="right" style="padding-top:15px; padding-right:20px;"><h5><a href="<?php echo site_url("exam/exam_add");?>" class="default-tab">添加<?php echo $info;?></a></h5></div>
+		<div align="right" style="padding-top:15px; padding-right:20px;">
+		</div>
         <div class="clear"></div>
       </div>
      
@@ -27,27 +28,32 @@
             </thead>
             
             <tbody>
-<?php foreach ($list as $item){?>
-		
+<!-- 开始循环遍历所有的考试 -->
+<?php foreach ($list as $item){?>		
 <tr>
 <td><?php echo $item['id'];?></td>
-<td><a href="<?php echo site_url("exam/exam_edit/".$item['id']);?>" title="<?php echo $item['subject'];?>"><?php echo $item['subject'];?></a></td>
+<td><?php echo $item['subject']?></td>
 <td><?php echo $item['start_time'];?></td>
 <td><?php echo $item['deadline'];?></td>
 <td><?php echo $item['location'];?></td>
 <td><?php echo $item['capacity'];?></td>
-<td><a href="<?php echo site_url("exam/exam_kaosheng_list/".$item['id']);?>" title="<?php echo $item['number'];?>"><?php echo $item['number'];?></a></td>
+<td><?php echo $item['number'];?></td>
 <td>
-<a href="<?php echo site_url("exam/exam_edit/".$item['id']);?>" title="编辑" target="_blank">编辑</a>&nbsp;&nbsp; 
-<!--<a href="<?php echo site_url("kaosheng/kaosheng_fp/".$item['id'].'/'.substr($item['zuowei_all_num'],0,2));?>" title="重新分配" target="_blank">重新分配</a>&nbsp;&nbsp; 
-<a href="<?php echo site_url("exam/exam_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; -->
 
-<?php
-		if($this->session->userdata('statement')!=''){
-		?>&nbsp;&nbsp; <a href="<?php echo site_url("kaosheng/kaosheng_del/".$item['id']);?>" title="删除" onclick="javascript:return confirm('确认删除？');"><img src="<?php echo base_url();?>public/images/admin/images/icons/cross.png" alt="删除" /></a>
-		<?php
-		 }
-		 ?>
+<!-- 如果发现已经报名。则显示已报名 -->
+<?php 
+$this->load->model ( 'Data_model' );
+$data ['query'] = $this->Data_model->get_exists_data ( array (
+		'id' => $this->session->userdata('id'),
+		'exam_id' => $item['id'],
+), 'student_exam' );
+if($data['query']>0){
+	echo 已报名;
+}else{?>
+<!-- 未报名则可以报名 -->
+<a href="<?php echo site_url("exam/exam_signdo/".$item['id']);?>"
+ title="报名">报名</a>&nbsp;&nbsp;
+<?php }?>
 </td>
 </tr>
 <?php }?>

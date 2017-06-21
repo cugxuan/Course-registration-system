@@ -33,39 +33,60 @@ class Exam extends CI_Controller {
 		
 		date_default_timezone_set ( 'Asia/Shanghai' );
 		
-		/*
-		 * 判断参数$page 大小start
-		 */
-		if ($page < 1) {
-			$page = 1;
-		} else {
-			$page = intval( $page );
+		if($this->session->userdata('statement')==2){
+			if ($page < 1) {
+				$page = 1;
+			} else {
+				$page = intval( $page );
+			}
+			
+			$num = 20; // 每页条数
+			$offset = ($page - 1) * $num;
+			$ID=$this->session->userdata('id');
+			$this->load->model ( 'Data_model' );
+			//get_alldata获取某个学生已报名的所有考试
+			$list ['list'] = $this->Data_model->get_alldata ($ID,'student_exam','exam');
+			
+			$data ['title'] = '已选考试 - ';
+			$data ['curbig'] = 2; // current
+			$data ['cursmal'] = 22; // class="current"
+				
+			$list ['info'] = '已选考试';
+			$list ['total_rows'] = $this->db->count_all ( 'student_exam' );
+			
+			$this->load->view ( 'menu_kaosheng', $data );
+			$this->load->view ( 'exam_list', $list );
+		}else{
+			//判断参数$page 大小start
+			if ($page < 1) {
+				$page = 1;
+			} else {
+				$page = intval( $page );
+			}
+			
+			$num = 20; // 每页条数
+			$offset = ($page - 1) * $num;
+			$this->load->model ( 'Data_model' );
+			$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'exam', $num, $offset );
+			
+			$data ['title'] = '考试列表 - ';
+			$data ['curbig'] = 2; // current
+			$data ['cursmal'] = 22; // class="current"
+			
+			$list ['info'] = '考试';
+			$list ['total_rows'] = $this->db->count_all ( 'exam' );
+			$this->load->view ( 'menu', $data );
+			$this->load->view ( 'exam_list', $list );
 		}
+// 		$config ['page_url'] = 'kaosheng/kaosheng_list';
+// 		$config ['page_size'] = $num;
+// 		$config ['rows_num'] = $this->db->count_all ( 'exam' );
+// 		$config ['page_num'] = $page;
+// 		$this->load->library ( 'Custom_pagination' );
+// 		$this->custom_pagination->init ( $config );
+// 		$list ['fenye'] = $this->custom_pagination->create_links ();
 		
-		$num = 20; // 每页条数
-		$offset = ($page - 1) * $num;
 		
-		$this->load->model ( 'Data_model' );
-		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'exam', $num, $offset );
-		
-		$data ['title'] = '考试列表 - ';
-		$data ['curbig'] = 2; // current
-		$data ['cursmal'] = 22; // class="current"
-		
-		$list ['info'] = '考试';
-		$list ['total_rows'] = $this->db->count_all ( 'exam' );
-		
-		$config ['page_url'] = 'kaosheng/kaosheng_list';
-		$config ['page_size'] = $num;
-		$config ['rows_num'] = $this->db->count_all ( 'exam' );
-		$config ['page_num'] = $page;
-		$this->load->library ( 'Custom_pagination' );
-		$this->custom_pagination->init ( $config );
-		$list ['fenye'] = $this->custom_pagination->create_links ();
-		
-		//$this->load->view ( 'menu', $data );
-		$this->load->view ( 'menu', $data );
-		$this->load->view ( 'exam_list', $list );
 	}
 	
 	// =============== 考试 添加 ========================
@@ -348,35 +369,114 @@ class Exam extends CI_Controller {
 	
 	// =============== 报名 考试 ========================
 	public function exam_sign() {
-	    $status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-	    if ($this->session->userdata ( 'statement' ) == '') {
-	        header ( "Content-Type:text/html;charset=utf-8" );
-	        echo '<script>alert("请登录 ！");';
-	        echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
-	        exit ();
-	    }
-	
-	    $id = $this->session->userdata('id');
-	
-	    $this->load->model ( 'Data_model' );
-	    $list ['list'] = $this->Data_model->get_adata ( $id, 'student' );
-	    //$list['daqu']=$this->Data_model->get_data('id asc','daqu');
-	    //$list['school']=$this->Data_model->get_data('id asc','school');
-	
-	    $data ['title'] = '考生信息 - ';
-	    $data ['curbig'] = 1; // current
-	    $data ['cursmal'] = 12; // class="current"
-	
-	    $list ['id']=$id;
-	    $list ['info'] = '考生信息';
-	
-	    $this->load->view ( 'menu_kaosheng', $data );
-	    $this->load->view ( 'exam_sign', $list );
+			$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+		if ($this->session->userdata ( 'statement' ) == '') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("请登录 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
+		
+		date_default_timezone_set ( 'Asia/Shanghai' );
+		
+		/*
+		 * 判断参数$page 大小start
+		 */
+		if ($page < 1) {
+			$page = 1;
+		} else {
+			$page = intval( $page );
+		}
+		
+		$num = 20; // 每页条数
+		$offset = ($page - 1) * $num;
+		
+		$this->load->model ( 'Data_model' );
+		$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'exam', $num, $offset );
+		
+		$data ['title'] = '考试列表 - ';
+		$data ['curbig'] = 2; // current
+		$data ['cursmal'] = 21; // class="current"
+		
+		$list ['info'] = '考试';
+		$list ['total_rows'] = $this->db->count_all ( 'exam' );
+		
+		$config ['page_url'] = 'kaosheng/kaosheng_list';
+		$config ['page_size'] = $num;
+		$config ['rows_num'] = $this->db->count_all ( 'exam' );
+		$config ['page_num'] = $page;
+		$this->load->library ( 'Custom_pagination' );
+		$this->custom_pagination->init ( $config );
+		$list ['fenye'] = $this->custom_pagination->create_links ();
+		
+		//$this->load->view ( 'menu', $data );
+		$this->load->view ( 'menu_kaosheng', $data );
+		$this->load->view ( 'exam_sign', $list );
 	}
 	
+	// =============== 考生 编辑 do ========================
+	public function exam_signdo($id = 1) {
+		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+		$data ['curbig'] = 2; // current
+		$data ['cursmal'] = 22; // class="current"
+		
+		$this->load->model ( 'Data_model' );
+		$this->db->trans_start();
+ 		$post2 = array (
+ 				'id'=>$this->session->userdata('id'),
+ 				'exam_id'=>$id,			
+ 		);
+ 		$query=$this->Data_model->get_data_some( $id, 'exam' );
+ 		$ca=$query['capacity'];//人数容量
+ 		$num=$query['number'];//已选人数
+ 		
+ 		
+ 		if($ca>$num){//可以插入
+ 			$num++;
+ 			$this->Data_model->update_data ( $id,array('number'=>$num), 'exam' );
+ 			$this->Data_model->insert_data ( $post2, 'student_exam' );
+ 			$status ['msg'] = '报名考试成功！';
+ 			$this->load->view ( 'status', $status );
+ 		}else{
+ 			$status ['msg'] = '人数已满，报名失败！';
+ 			$this->load->view ( 'status', $status );
+ 		}
+ 		
+ 		$this->db->trans_complete(); //传输数据库结束
+	}
 	
+	// =============== 考试退选 ========================
+	public function exam_withdrew($id) {
+		if ($this->session->userdata ( 'statement' ) == '') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("请登录 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
+		if ($this->session->userdata ( 'statement' ) != '2') {
+			header ( "Content-Type:text/html;charset=utf-8" );
+			echo '<script>alert("您没有此操作权限 ！");';
+			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+			exit ();
+		}
 	
-	
+		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
+		//读取数据库
+		$this->load->model ( 'Data_model' );
+		$stu_id=$this->session->userdata('id');
+		$data ['query'] = $this->Data_model->delete_data_line ( $stu_id, $id,'student_exam' );
+		//将已选人数减1
+		$query=$this->Data_model->get_data_some( $id, 'exam' );
+		$num=$query['number'];//已选人数
+		$num--;
+		$this->Data_model->update_data ( $id,array('number'=>$num), 'exam' );
+		
+		
+		$status ['msg'] = '退选成功！';
+		$this->load->view ( 'status', $status );
+		$this->load->view ( 'exam_list', $status );
+		
+	}
 	
 	
 	
@@ -605,10 +705,10 @@ class Exam extends CI_Controller {
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		$id = intval(trim(htmlspecialchars ( $id )));
-		$data ['title'] = '考生删除 - ';
+		$data ['title'] = '考试删除 - ';
 		$data ['curbig'] = 1; // current
 		$data ['cursmal'] = 12; // class="current"
-		$list ['info'] = '考生';
+		$list ['info'] = '考试';
 		
 		if ($id == '') {
 			$status ['msg'] = 'id不能为空！';

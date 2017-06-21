@@ -37,7 +37,9 @@
 <h2><center>
   <?php if($action=='add'){echo '添加';}else{echo '编辑';} ?> <?php echo $info;?>
 </center></h2>
-<form action="<?php if($action=='add'){echo site_url("kaosheng/kaosheng_adddo/");}else{echo site_url("kaosheng/kaosheng_editdo/".$list['id']);} ?>" method="post" id="form" class="form">
+<form action="<?php if($action=='add'){echo site_url("kaosheng/kaosheng_adddo/");}
+else{echo site_url("kaosheng/kaosheng_editdo/".$list['id']);} ?>"
+method="post" id="form" class="form">
 
 <fieldset>
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -56,7 +58,7 @@
             ?>
         <tr>
           <td>考生号 : </td>
-          <td><input class="text-input" type="text" id="id" name="id" size="40" />(即学号，如： 20151003756)</td>
+          <td><input class="text-input" type="text" id="id" name="id" size="40" /><br />(即学号，如： 20151003756)</td>
 		
           <td>密码 : </td>
           <td><input class="text-input" type="password" id="password" name="password" size="40" /></td>
@@ -93,7 +95,7 @@
           <td><input class="text-input" type="text" id="local" name="local" size="40" value="<?php if($action=='add'){}else{
 			if(isset($list['local'])){echo $list['local'];}
 			} ?>" /></td>
-          <td>           </td>
+          <td><?php  if($action!='add') echo '<pre>注：       不修改密码则不填写</pre>';?></td>
           <td class="text-input"></td>
         </tr>
       

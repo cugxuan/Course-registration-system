@@ -57,7 +57,7 @@
 		
         <tr>
           <td>性别 : </td>
-          <td>  <?php if($list['sex']=='0'){echo 男;}else{echo 女;}?></td>
+          <td><?php echo $list['sex'];?></td>
           <td>联系电话  :</td>
           <td><?php echo $list['phone'];?></td>
         </tr>

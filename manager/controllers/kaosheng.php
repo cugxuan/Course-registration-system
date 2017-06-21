@@ -182,20 +182,6 @@ class Kaosheng extends CI_Controller {
 			echo 'window.location.href="' . $status ['where'] . '";</script>';
 			exit ();
 		}
-		
-		$this->db->trans_start();
-		/*$year=date('Y',time()); //年  如：2013
-		$getBMList=$this->Data_model->get_wdata_bypage(array('daqu_num'=>$daqu_num),'id desc','kaosheng',0,1);
-
-		$daquNumStr=substr('00'.$daqu_num, -2);//默认大区num
-		$nowQuKSNumStr='001';  //默认大区下编号num
-		
-		if($getBMList){
-			$maxQuKSNum=$getBMList[0]['kaosheng_num'];		
-			$nowQuKSNum=$maxQuKSNum+1;			
-			$nowQuKSNumStr=substr('00'.$nowQuKSNum, -3);
-		}
-		$bmid=$year.$daquNumStr.$nowQuKSNumStr;  //报名号*/
 				
 		$data ['title'] = '考生 - ';
 		$data ['curbig'] = 1; // current
@@ -221,7 +207,7 @@ class Kaosheng extends CI_Controller {
 		$this->Data_model->insert_data ( $post, 'student' );		
 		$this->db->trans_complete();
 		
-		$status ['msg'] = '添加成功！';
+		$status ['msg'] = '报名考试成功！';
 		//$status ['where'] = site_url("kaosheng//");
 		
 		$this->load->view ( 'status', $status );
@@ -269,20 +255,13 @@ class Kaosheng extends CI_Controller {
 	public function kaosheng_editdo($id = 1) {
 		//注册考生不需要身份
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
-		$id = intval(trim(htmlspecialchars ( $id )));
 		
-				
-		//$daqu_num =  intval(trim(htmlspecialchars ( $this->input->post ( 'daqu_num' ) )));
 		$name =  trim(htmlspecialchars ( $this->input->post ( 'name' ) ));
-		//$school_name =  trim(htmlspecialchars ( $this->input->post ( 'school_name' ) ));
-		//$school_name2 =  trim(htmlspecialchars ( $this->input->post ( 'school_name2' ) ));
+		$password =  trim(htmlspecialchars ( $this->input->post ( 'password' ) ));
 		$credit_card =  trim(htmlspecialchars ( $this->input->post ( 'credit_card' ) ));
 		$sex =  trim(htmlspecialchars ( $this->input->post ( 'sex' ) ));
-		//$birthday=  trim(htmlspecialchars ( $this->input->post ( 'birthday' ) ));
 		$local=  trim(htmlspecialchars ( $this->input->post ( 'local' ) ));
-		//$fmqo_name=  trim(htmlspecialchars ( $this->input->post ( 'fmqo_name' ) ));
 		$phone=  trim(htmlspecialchars ( $this->input->post ( 'phone' ) ));
-		//$photo=  trim(htmlspecialchars ( $this->input->post ( 'photo' ) ));
 		
 		if ($name=='' ||$credit_card=='' || $sex=='' || $local=='' || $phone=='') {
 			$status ['msg'] = '请填写完整，添加失败！';
@@ -292,7 +271,7 @@ class Kaosheng extends CI_Controller {
 			exit ();
 		}
 		
-		$this->load->model ( 'Data_model' );		
+		$this->load->model ( 'Data_model' );
 		$time=time();
 				if($sex==1){
 					$sex_='男';
@@ -301,23 +280,18 @@ class Kaosheng extends CI_Controller {
 					$sex_='女';
 				}
 		$this->db->trans_start();
+		if($password==''){
+			$Data = $this->Data_model->get_adata ( $id, 'student' );
+			$password=$Data['password'];
+		}
 		$post = array (
 				'name' => $name,
+				'password'=>md5(md5($password)),
 				'credit_card' => $credit_card,
 				'sex' => $sex_,
 				'phone' => $phone,
 				'local' => $local,
-		);
-		
-		$KSData = $this->Data_model->get_adata ( $id, 'student' );
-		$post = array (
-				'name' => $name,
-				'credit_card' => $credit_card,
-				'sex' => $sex,
-				'phone' => $phone,
-				'local' => $local,
-		);
-				
+		);	
 		
 		$data ['title'] = '考生 - ';
 		$data ['curbig'] = 1; // current
