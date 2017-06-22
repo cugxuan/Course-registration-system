@@ -47,7 +47,7 @@
      
       <div id="profile-links"> 你好, <?php echo $this->session->userdata('name');?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
         <br />
-        <a href="<?php echo site_url('index/manage');?>" title="后台首页">考生信息</a> |  &nbsp;<a href="<?php echo site_url('index/logout');?>" title="退出登录">退出登录</a> </div>
+        <a href="<?php echo site_url('kaosheng/kaosheng_info');?>" title="后台首页">考生信息</a> |  &nbsp;<a href="<?php echo site_url('index/logout');?>" title="退出登录">退出登录</a> </div>
       <ul id="main-nav">
         <!--  Menu  Start -->
         <?php

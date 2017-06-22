@@ -106,7 +106,7 @@ class Kaosheng extends CI_Controller {
 		
 		$data ['title'] = '考生添加 - ';
 		$data ['curbig'] = 1; // current
-		$data ['cursmal'] = 11; // class="current"
+		$data ['cursmal'] = 12; // class="current"
 		
 		$list ['info'] = '考生';
 		$list ['action'] = 'add';
@@ -531,16 +531,20 @@ class Kaosheng extends CI_Controller {
 		
 		$this->load->model ( 'Data_model' );
 		
-		$que=$this->Data_model->get_alldata ( $id, 'student_exam','exam' );
-		$re=array();
-		$rea=array();
-		foreach($que as $resp){
-			$rea=$resp['id'];
-			$re[]=$resp['number']--;
-		}
-		$data['query3']=$this->Data_model->update_data ( $rea,array('number'=>re), 'exam' );
-		$data ['query'] = $this->Data_model->delete_data ( $id, 'student' );
+// 		$que=$this->Data_model->get_alldata ( $id, 'student_exam','exam' );
+// // 		$re=array();
+// // 		$rea=array();
+// 		foreach($que as $resp){
+// 			$rea=$resp['id'];
+// 			$re=$resp['number']--;
+		//}
+		
+		//更新考试的已选人数
+		$data['query3']=$this->Data_model->update_data2( $id,'student_exam', 'exam' );
+		//删除学生_考试表中的已选人数
 		$data ['query2'] = $this->Data_model->delete_data( $id, 'student_exam' );
+		//删除学生表中的信息
+		$data ['query'] = $this->Data_model->delete_data ( $id, 'student' );
 		
 		$status ['msg'] = '删除成功！';
 		

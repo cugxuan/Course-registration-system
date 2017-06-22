@@ -137,7 +137,40 @@ class Data_model extends CI_Model {
         $query=$this->db->update($table, $post, array('id' => $id));
 		return $query;
     }
-	
+    function update_data2($id,$table1,$table2)
+    {
+    	$query2 = $this->db->get_where($table1, array('id'=>$id)); //$some  类似数组 array('city_name' => $city_name)
+		$num=$query2->num_rows(); //返回条数，
+		if($num>0){
+			$query1=$this->db->where('id',$id)->select('exam_id')->get($table1)->result_array();
+			
+			$re=array();
+			foreach($query1 as $resp){
+				$re[]=$resp['exam_id'];
+			}
+			$query2=$this->db->where_in('id',$re)->select('number')->get($table2)->result_array();
+			//$re2=array();
+// 			foreach($query2 as $resp2){
+// 				$re1[]=$resp2['number'];
+// 			}
+// 			$i=0;
+// 			while(re[i]!=' '){
+// 				$re3=$re[i];
+// 				$re2=$re1[i]--;
+// 				$query3=$this->db->update($table2, array('number'=>$re2), array('id' => $re3));
+// 				$i++;
+// 			}
+			foreach($query1 as $resp2){
+				$re3=$resp2['id'];
+				$re2=$resp2['number']--;
+				$query3=$this->db->update($table2, array('number'=>$re2), array('id' => $re3));
+			}
+			return $query3;
+		}else
+			return ' ';
+    }
+    
+    
     function delete_table($table)
     {
     	$query=$this->db->delete($table);

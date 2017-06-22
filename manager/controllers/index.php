@@ -186,7 +186,7 @@ class Index extends CI_Controller {
 	public function kaosheng(){
 	     $data ['title'] = '考生信息 - ';
 	     $data ['curbig'] = 1; // current
-	     $data ['cursmal'] = 0; // class="current"
+	     $data ['cursmal'] = 11; // class="current"
 	    
 	     $list ['id'] = $this->session->userdata ( 'id' );
 	     $list ['name'] = $this->session->userdata ( 'name' );
