@@ -134,12 +134,12 @@ class Kaosheng extends CI_Controller {
 	}
 	// =============== 添加 考生 do ========================已进行更改
 	public function kaosheng_adddo() {
-		if ($this->session->userdata ( 'statement' ) == '') {
-			header ( "Content-Type:text/html;charset=utf-8" );
-			echo '<script>alert("请登录 ！");';
-			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
-			exit ();
-		}
+// 		if ($this->session->userdata ( 'statement' ) == '') {
+// 			header ( "Content-Type:text/html;charset=utf-8" );
+// 			echo '<script>alert("请登录 ！");';
+// 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
+// 			exit ();
+// 		}
 
 		date_default_timezone_set ( 'Asia/Shanghai' );
 		
