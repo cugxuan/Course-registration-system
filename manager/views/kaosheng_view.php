@@ -33,10 +33,8 @@ case "2":
 ?>
 <br />
     <br /><br />
-			<?php  if($p==1){echo '<font color=red>';}?>1.最近考试安排如下<?php  if($p==1){echo '</font>';}?><br /><br />
-
-			<?php  if($p==10){echo '<font color=red>';}?>英语四六级考试：2017年6月17日<?php  if($p==10){echo '</font>';}?><br /><br /><br />
-			
+			<pre><?php echo $str;?></pre>
+			<br /><br />
 			<h5 style="color:#FF0000">提示：如果您遇到了问题，请联系网站管理员-Xuan(QQ:179562600)！</h5>
 			</td>
 </tr>

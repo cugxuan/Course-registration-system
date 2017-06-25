@@ -178,7 +178,11 @@ class Index extends CI_Controller {
 	    $list ['id'] = $this->session->userdata ( 'id' );
 	    $list ['name'] = $this->session->userdata ( 'name' );
 	    $list ['statement'] = $this->session->userdata ( 'statement' );
-	    
+	    //查询数据库提示信息放置到str
+	    $this->load->model ( 'Data_model' );
+	    $info= $this->Data_model->get_adata ( 0, 'info' );  //0表示注册信息
+	    $list['str']=$info['info'];
+	   
 	    $this->load->view ('menu_register',$data);
 	    $this->load->view ( 'register_view', $list );
 	}
@@ -191,7 +195,10 @@ class Index extends CI_Controller {
 	     $list ['id'] = $this->session->userdata ( 'id' );
 	     $list ['name'] = $this->session->userdata ( 'name' );
 	     $list ['statement'] = $this->session->userdata ( 'statement' );
-	    
+	     //查询数据库提示信息放置到str
+	     $this->load->model ( 'Data_model' );
+	     $info= $this->Data_model->get_adata ( 1, 'info' );  //1表示考生信息
+	     $list['str']=$info['info'];
 	     
 	     $this->load->view ( 'menu_kaosheng', $data );
 	     $this->load->view ( 'kaosheng_view', $list );

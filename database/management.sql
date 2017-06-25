@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-06-18 06:02:36
+-- Generation Time: 2017-06-25 17:17:09
 -- 服务器版本： 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -62,8 +62,27 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`id`, `subject`, `start_time`, `deadline`, `location`, `capacity`, `number`) VALUES
-(20170001, '英语四级', '2017.03.21', '2017.06.05', '地大', 5000, 2),
-(20170002, '英语六级', '2017.03.21', '2017.06.05', '地大', 5000, 2);
+(20170001, '英语四级', '2017.03.21', '2017.06.05', '地大', 5000, 1),
+(20170002, '英语六级', '2017.03.21', '2017.06.05', '地大', 5000, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `info`
+--
+
+CREATE TABLE `info` (
+  `id` int(5) NOT NULL,
+  `info` text CHARACTER SET utf8 COLLATE utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- 转存表中的数据 `info`
+--
+
+INSERT INTO `info` (`id`, `info`) VALUES
+(0, '1.请点击左侧的添加考生来填写并提交\n\n2.最近考试安排如下\n\n\n英语四六级考试：2017年6月17日'),
+(1, '1.最近考试安排如下\n\n英语四六级考试：2017年6月17日');
 
 -- --------------------------------------------------------
 
@@ -87,7 +106,7 @@ CREATE TABLE `student` (
 
 INSERT INTO `student` (`id`, `password`, `name`, `credit_card`, `sex`, `phone`, `local`) VALUES
 (20171003152, '14e1b600b1fd579f47433b88e8d85291', 'Xuan', '326515199420158951', '男', 13526552651, '湖北'),
-(20173256485, '14e1b600b1fd579f47433b88e8d85291', 'Jiemy', '562632199532145698', '男', 15248623145, '江西');
+(20151003188, '14e1b600b1fd579f47433b88e8d85291', 'Henry', '151131864789645161458456', '男', 1552625626, '湖北');
 
 -- --------------------------------------------------------
 
@@ -106,9 +125,7 @@ CREATE TABLE `student_exam` (
 
 INSERT INTO `student_exam` (`id`, `exam_id`) VALUES
 (20171003152, 20170001),
-(20171003152, 20170002),
-(20173256485, 20170001),
-(20173256485, 20170002);
+(20151003188, 20170002);
 
 --
 -- Indexes for dumped tables
@@ -124,6 +141,12 @@ ALTER TABLE `admin_core`
 -- Indexes for table `exam`
 --
 ALTER TABLE `exam`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `info`
+--
+ALTER TABLE `info`
   ADD PRIMARY KEY (`id`);
 
 --

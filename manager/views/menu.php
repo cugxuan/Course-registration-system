@@ -87,11 +87,11 @@
             <li><a href="<?php echo site_url("admin/admin_list");?>" <?php if($cursmal==52){echo ' class="current"';}?>>管理员管理</a></li>
           </ul>
         </li>
-			<?php if($this->session->userdata('statement')==5){?>
+			<?php if($this->session->userdata('statement')!=2){?>
 			 <li> <a href="javascript:void(0);" class="nav-top-item <?php if($curbig==6){echo '  current';}?>"> 系统设置 </a>
 	          <ul>
-	            <li><a href="<?php echo site_url("systemc/index");?>" <?php if($cursmal==62){echo ' class="current"';}?>>系统设置</a></li>
-				<li><a href="<?php echo site_url("systemc/init_system");?>" <?php if($cursmal==63){echo ' class="current"';}?>>初始化系统</a></li>			
+	            <li><a href="<?php echo site_url("admin/edit_info");?>" <?php if($cursmal==61){echo ' class="current"';}?>>修改公告栏</a></li>
+				<!--<li><a href="<?php echo site_url("systemc/init_system");?>" <?php if($cursmal==63){echo ' class="current"';}?>>初始化系统</a></li>-->		
 				<!--<li><a href="<?php echo site_url("daqu/daqu_list");?>" <?php if($cursmal==64){echo ' class="current"';}?>>大区管理</a></li>-->
 				<!--<li><a href="<?php echo site_url("school/school_list");?>" <?php if($cursmal==65){echo ' class="current"';}?>>学校管理</a></li>-->
 	          </ul>
