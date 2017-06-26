@@ -327,16 +327,31 @@ class Admin extends CI_Controller {
 		}
 	
 		$id=0;
+		$info=htmlspecialchars($this->input->post('str1'));
 		$info=$this->input->post('str1');
 // 		$id=substr($str, 0, 1);
 // 		$info=substr($str, 1);
+		$status ['msg'] = '删除成功！'.$info.'end';
+		$this->load->view ( 'status', $status );
 		
-		$this->load->model ( 'Data_model' );
-		$query=$this->Data_model->update($id,array('info'=>$info),'info' );
-	
+		
+// 		//对数据库中的内容进行更新
+// 		$this->load->model ( 'Data_model' );
+// 		$query=$this->Data_model->update($id,array('info'=>$info),'info' );
 
-// 		$this->load->view ( 'menu', $data );
-// 		$this->load->view ( 'edit_info', $list );
+
+// 		//查询数据库提示信息放置到str
+// 		$info= $this->Data_model->get_adata ( 1, 'info' );  //1表示考生信息
+// 		$list['str1']=$info['info'];
+// 		$info= $this->Data_model->get_adata ( 0, 'info' );  //0表示注册信息
+// 		$list['str2']=$info['info'];
+// 		$data ['title'] = '修改公告栏  - ';
+// 		$data ['curbig'] = 6; // current
+// 		$data ['cursmal'] = 61; // class="current"
+		
+		
+		$this->load->view ( 'menu', $data );
+		$this->load->view ( 'public_edit', $list );
 	}
 }
 ?>
