@@ -67,7 +67,7 @@ class Exam extends CI_Controller {
 			$num = 20; // 每页条数
 			$offset = ($page - 1) * $num;
 			$this->load->model ( 'Data_model' );
-			$list ['list'] = $this->Data_model->get_data_bypage ( 'id desc', 'exam', $num, $offset );
+			$list ['list'] = $this->Data_model->get_data_bypage ( 'id Asc', 'exam', $num, $offset );
 			
 			$data ['title'] = '考试列表 - ';
 			$data ['curbig'] = 2; // current

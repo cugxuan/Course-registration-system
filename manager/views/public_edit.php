@@ -5,7 +5,7 @@
  
 <div class="tab-content default-tab" id="tab2">
 <h2><center><?php echo 修改公告栏信息;?></center></h2>
-<form action="<?php echo site_url('admin/edit_info_do/'); ?>" method="post" id="form" class="form">
+<form action="<?php echo site_url('admin/edit_info_do/'); ?>" method="post" id="form" >
             <fieldset>
             <div>
             	<span class="gg button" style="background: red url(../images/bg-button-green.gif) top left repeat-x !important;">公告1</span>
@@ -32,7 +32,6 @@
 		</div>
 		
 		
-		</div>
 		</div>
 		</div>
 <script type="text/javascript">

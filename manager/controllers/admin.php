@@ -223,13 +223,9 @@ class Admin extends CI_Controller {
 		
 		$status ['where'] = $_SERVER ['HTTP_REFERER']; // 来源地址
 		$id =  trim(htmlspecialchars ( $id ));
-		
-		// $manage_name=htmlspecialchars($this->input->post('manage_name'));
 		$manage_password = trim(htmlspecialchars ( $this->input->post ( 'password1' ) ));
 		$name = htmlspecialchars ( $this->input->post ( 'name' ) );
-		//$manage_isstop = trim(htmlspecialchars ( $this->input->post ( 'manage_isstop' ) ));
-
-		$statement =  trim(htmlspecialchars ( $this->input->post ( 'statement' ) ));
+        $statement =  trim(htmlspecialchars ( $this->input->post ( 'statement' ) ));
 
 		
 		$data ['title'] = '管理员 - ';
@@ -328,11 +324,12 @@ class Admin extends CI_Controller {
 	
 		$id=0;
 		$info=htmlspecialchars($this->input->post('str1'));
-		$info=$this->input->post('str1');
+		$info2=htmlspecialchars($this->input->post('str2'));
+		//$info=$this->input->post('str1');
 // 		$id=substr($str, 0, 1);
 // 		$info=substr($str, 1);
-		$status ['msg'] = '删除成功！'.$info.'end';
-		$this->load->view ( 'status', $status );
+ 		$status ['msg'] = '修改成功！'.$info.'end';
+ 		$this->load->view ( 'status', $status );
 		
 		
 // 		//对数据库中的内容进行更新
