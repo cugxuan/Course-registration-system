@@ -8,10 +8,10 @@
 <form action="<?php echo site_url('admin/edit_info_do/'); ?>" method="post" id="form" >
             <fieldset>
             
-            	<span class="gg button" style="background: red url(../images/bg-button-green.gif) top left repeat-x !important;">公告1</span>
+            	<span class="gg button" style="background: red url(../images/bg-button-green.gif) top left repeat-x !important;">注册界面</span>
 					<textarea class="str" id="str1" name="str1"  cols="20" rows="10" style="display: none"><?php if(isset($str1))  {echo $str1;}?></textarea>
 				<br />			
-				<span class="gg button" style="background: red url(../images/bg-button-green.gif) top left repeat-x !important;">公告2</span>
+				<span class="gg button" style="background: red url(../images/bg-button-green.gif) top left repeat-x !important;">考生登录界面</span>
 					<textarea class="str" id="str2" name="str2"  cols="20" rows="10" style="display: none"><?php if(isset($str2))  {echo $str2;}?></textarea>				
                 <br />
              <input class="button" type="submit" value="提交修改" />

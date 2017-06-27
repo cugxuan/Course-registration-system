@@ -530,7 +530,6 @@ class Kaosheng extends CI_Controller {
 		}
 		
 		$this->load->model ( 'Data_model' );
-		
 		$que=$this->Data_model->get_alldata ( $id, 'student_exam','exam' );
 		foreach($que as $resp){
 			$rea=$resp['id'];
@@ -539,8 +538,7 @@ class Kaosheng extends CI_Controller {
 			$this->Data_model->update_data( $rea,array('number'=>$re), 'exam' );
 		}
 		
-		
-		//删除学生_考试表中的已选人数
+		//删除学生_考试表中的该考生所选的所有考试
 		$data ['query2'] = $this->Data_model->delete_data( $id, 'student_exam' );
 		//删除学生表中的信息
 		$data ['query'] = $this->Data_model->delete_data ( $id, 'student' );
