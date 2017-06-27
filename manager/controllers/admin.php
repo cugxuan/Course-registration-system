@@ -300,9 +300,9 @@ class Admin extends CI_Controller {
 	
 	    //查询数据库提示信息放置到str
 	    $this->load->model ( 'Data_model' );
-	    $info= $this->Data_model->get_adata ( 1, 'info' );  //1表示考生信息
-	    $list['str1']=$info['info'];
 	    $info= $this->Data_model->get_adata ( 0, 'info' );  //0表示注册信息
+	    $list['str1']=$info['info'];
+	    $info= $this->Data_model->get_adata ( 1, 'info' );  //1表示考生信息
 	    $list['str2']=$info['info'];
 	    
 		$data ['title'] = '修改公告栏  - ';
@@ -321,34 +321,14 @@ class Admin extends CI_Controller {
 			echo 'window.location.href="' . site_url ( 'index' ) . '";</script>';
 			exit ();
 		}
-	
-		$id=0;
-		$info=htmlspecialchars($this->input->post('str1'));
-		$info2=htmlspecialchars($this->input->post('str2'));
-		//$info=$this->input->post('str1');
-// 		$id=substr($str, 0, 1);
-// 		$info=substr($str, 1);
- 		$status ['msg'] = '修改成功！'.$info.'end';
- 		$this->load->view ( 'status', $status );
-		
-		
-// 		//对数据库中的内容进行更新
-// 		$this->load->model ( 'Data_model' );
-// 		$query=$this->Data_model->update($id,array('info'=>$info),'info' );
-
-
-// 		//查询数据库提示信息放置到str
-// 		$info= $this->Data_model->get_adata ( 1, 'info' );  //1表示考生信息
-// 		$list['str1']=$info['info'];
-// 		$info= $this->Data_model->get_adata ( 0, 'info' );  //0表示注册信息
-// 		$list['str2']=$info['info'];
-// 		$data ['title'] = '修改公告栏  - ';
-// 		$data ['curbig'] = 6; // current
-// 		$data ['cursmal'] = 61; // class="current"
-		
-		
-		$this->load->view ( 'menu', $data );
-		$this->load->view ( 'public_edit', $list );
+		$this->load->model ( 'Data_model' );
+	     $str1 = $_POST['str1'] ? $_POST['str1'] : '';
+	     $str2 = $_POST['str2'] ? $_POST['str2'] : '';
+	     $test =  $_POST['test'] ? $_POST['test'] : '';
+	     $res1 = $this->Data_model->update_data ( 0, array('info'=>$str1), 'info' );
+	     $res2 = $this->Data_model->update_data ( 1, array('info'=>$str2), 'info' );
+	     
+	     redirect('admin/edit_info');
 	}
 }
 ?>
