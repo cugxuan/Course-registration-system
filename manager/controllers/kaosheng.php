@@ -537,7 +537,6 @@ class Kaosheng extends CI_Controller {
 			//更新考试的已选人数
 			$this->Data_model->update_data( $rea,array('number'=>$re), 'exam' );
 		}
-		
 		//删除学生_考试表中的该考生所选的所有考试
 		$data ['query2'] = $this->Data_model->delete_data( $id, 'student_exam' );
 		//删除学生表中的信息

@@ -45,8 +45,6 @@
 <a href="<?php echo site_url("exam/exam_kaosheng_list/".$item['id']);?>" title="<?php echo $item['number'];?>"><?php echo $item['number'];?></a></td>
 <?php }else{ echo $item['number'];}?></td>
 <td>
-<!--<a href="<?php echo site_url("kaosheng/kaosheng_fp/".$item['id'].'/'.substr($item['zuowei_all_num'],0,2));?>" title="重新分配" target="_blank">重新分配</a>&nbsp;&nbsp; 
-<a href="<?php echo site_url("exam/exam_print/".$item['id']);?>" title="打印准考证" target="_blank">打印准考证</a>&nbsp;&nbsp; -->
 
 <?php
 		if($this->session->userdata('statement')==2){

@@ -161,15 +161,6 @@ class Data_model extends CI_Model {
     	$query=$this->db->delete($table, array('id' => $id,'exam_id'=>$exam_id));
     	return $query;
     }
-	/*function getZuoWeiListByKCNum($kaochang_num,$kaosheng_id){
-		$sql='select z.id as zid,z.kaochang_num as zkaochang_num,z.zuowei_num as zzuowei_num,z.zuowei_all_num as zzuowei_all_num,z.part as zpart,z.kaosheng_id as zkaosheng_id,z.kaosheng_no as zkaosheng_no,k.id as kid,k.daqu_num as kdaqu_num,k.kaosheng_num as kkaosheng_num,k.kaosheng_no as kkaosheng_no,k.zuowei_id as kzuowei_id,k.zuowei_all_num as kzuowei_all_num,k.name as kname,k.school_name as kschool_name  from core_zuowei as z
-				left join core_kaosheng as k  on z.kaosheng_id=k.id
-				where z.kaochang_num='.$kaochang_num.'		
-				order by z.kaochang_num asc,z.zuowei_num asc,z.part asc		
-				';
-		$query=$this->db->query($sql);		
-		return $query->result_array();
-	}*/
 
 }
 ?>
